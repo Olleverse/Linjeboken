@@ -1,1 +1,10 @@
-
+{
+      "id": "GBG_almedal_till_varnamo_central",
+      "linjebokId": "GBG",
+      "name": "almedal_till_värnamo-central",
+      "ordning": ["Am","Mdö","Myk","Häy","Hås","Rd","Boy","Rö","Sae","Bsc","Apd","Hil","Lme","Grm","Het","Gnö","Hto","Väc"],
+      "tabellStrackor": [
+        { "name": "Almedal – Borås central", "start": "Am", "end": "Bsc" },
+        { "name": "Borås central – Värnamo central", "start": "Bsc", "end": "Väc" }
+      ]
+    },
