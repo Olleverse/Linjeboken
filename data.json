@@ -2,7 +2,9 @@
   "adminPin": "6431",
   "linjebocker": [
     { "id": "MAL", "name": "Malmö" },
-    { "id": "GBG", "name": "Göteborg" }
+    { "id": "GBG", "name": "Göteborg" },
+    { "id": "BDN", "name": "Boden" }
+
   ],
   "driftplatser": [
     { "code": "A", "name": "Alingsås" },
