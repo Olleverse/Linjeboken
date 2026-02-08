@@ -1,1 +1,108 @@
-
+"korridorer": [
+    {
+  "id": "ANG_birsta_till_fillan",
+  "linjebokId": "ANG",
+  "name": "birsta_till_fillan",
+  "ordning": ["Bia","Fil"],
+  "tabellStrackor": [
+    { "name": "Birsta – Fillan", "start": "Bia", "end": "Fil" }
+  ]
+},
+{
+  "id": "ANG_gimonas_till_sundsvalls_central",
+  "linjebokId": "ANG",
+  "name": "gimonäs_till_sundsvalls_central",
+  "ordning": ["Gim","Sök","Noe","Hös","Höf","Änö","Non","Nog","Ruk","Sbe","Köa","Humn","Hum","Gia","Hög","Ara","Ökn","Ök","Gån","Bja","Döe","Häb","Han","Slm","Väy","Dns","Krf","Fnö","Spk","Möl","Svj","Hsd","Hnl","Hän","Hsy","Sårs","Sen","Slbk","Trå","Bia","Nta","Suv","Suc"],
+  "tabellStrackor": [
+    { "name": "Gimonäs – Husums norra", "start": "Gim", "end": "Humn" },
+    { "name": "Husums norra – Arnäsvall", "start": "Humn", "end": "Ara" },
+    { "name": "Arnäsvall – Örnsköldsviks central", "start": "Ara", "end": "Ök" },
+    { "name": "Örnsköldsviks central – Västeraspby", "start": "Ök", "end": "Väy" },
+    { "name": "Västeraspby – Nacksta", "start": "Väy", "end": "Nta" },
+    { "name": "Nacksta – Sundsvalls central", "start": "Nta", "end": "Suc" }
+  ]
+},
+{
+  "id": "ANG_hoting_till_forsmo",
+  "linjebokId": "ANG",
+  "name": "hoting_till_forsmo",
+  "ordning": ["Hcp","Htg","Ros","Be","Tsg","Btå","Åd","Fsm"],
+  "tabellStrackor": [
+    { "name": "Hoting – Forsmo", "start": "Htg", "end": "Fsm" }
+  ]
+},
+{
+  "id": "ANG_langsele_till_vasteraspby",
+  "linjebokId": "ANG",
+  "name": "långsele_till_västeraspby",
+  "ordning": ["Lsl","Stå","Lkm","Väy"],
+  "tabellStrackor": [
+    { "name": "Långsele – Västeraspby", "start": "Lsl", "end": "Väy" }
+  ]
+},
+{
+  "id": "ANG_mellansel_till_ornskoldsviks_central",
+  "linjebokId": "ANG",
+  "name": "mellansel_till_örnsköldsviks_central",
+  "ordning": ["Msl","Öal","Ök"],
+  "tabellStrackor": [
+    { "name": "Mellansel – Örnsköldsviks central", "start": "Msl", "end": "Ök" }
+  ]
+},
+{
+  "id": "ANG_storlien_till_bracke",
+  "linjebokId": "ANG",
+  "name": "storlien_till_bräcke",
+  "ordning": ["Str","Ens","Ånn","Du","Åre","Un","Jpn","Mi","Äfs","Ma","Tåv","Nä","Sfn","Kroj","Krm","Hmfs","Ösv","Ös","Ope","Bf","Pl","Gö","Stv","Bä"],
+  "tabellStrackor": [
+    { "name": "Storlien – Bräcke", "start": "Str", "end": "Bä" }
+  ]
+},
+{
+  "id": "ANG_vannas_till_holmsund",
+  "linjebokId": "ANG",
+  "name": "vännäs_till_holmsund",
+  "ordning": ["Vän","Vns","Vby","Btb","Brd","Klbn","Uågb","Uå","Uåö","Gim","Hod"],
+  "tabellStrackor": [
+    { "name": "Vännäs – Umeå godsbangård", "start": "Vns", "end": "Uågb" },
+    { "name": "Umeå godsbangård – Umeå östra", "start": "Uågb", "end": "Uåö" },
+    { "name": "Umeå östra – Gimonäs", "start": "Uåö", "end": "Gim" },
+    { "name": "Gimonäs – Holmsund", "start": "Gim", "end": "Hod" }
+  ]
+},
+{
+  "id": "ANG_vannas_till_ange",
+  "linjebokId": "ANG",
+  "name": "vännäs_till_ånge",
+  "ordning": ["Vän","Vns","Dgm","Hsö","Hbä","Öä","Nyå","Oxm","Brs","Nrs","Thö","Lnv","Lmn","Bj","Bjö","Ge","Msl","Anö","Käv","Sop","Hoå","Ap","Som","Gnå","Baö","Slj","Fsm","Öså","Lsl","Hlm","Ga","Fgö","Bsg","Ru","Sngå","Hå","Rob","Vnt","Kln","Övö","Gsn","Dk","Ksg","Ny","Grö","Bön","Bä","Bsb","Dy","Mdl","Åg","Ågy","Åggb"],
+  "tabellStrackor": [
+    { "name": "Vännäs norra – Vännäs", "start": "Vän", "end": "Vns" },
+    { "name": "Vännäs – Hörnsjö", "start": "Vns", "end": "Hsö" },
+    { "name": "Hörnsjö – Högbränna", "start": "Hsö", "end": "Hbä" },
+    { "name": "Högbränna – Öreälv", "start": "Hbä", "end": "Öä" },
+    { "name": "Öreälv – Oxmyran", "start": "Öä", "end": "Oxm" },
+    { "name": "Oxmyran – Bräcke", "start": "Oxm", "end": "Bä" },
+    { "name": "Bräcke – Ånge", "start": "Bä", "end": "Åg" },
+    { "name": "Ångebyn – Ånge", "start": "Ågy", "end": "Åg" }
+  ]
+},
+{
+  "id": "ANG_ange_till_ljusdal",
+  "linjebokId": "ANG",
+  "name": "ånge_till_ljusdal",
+  "ordning": ["Åg","Åggb","Ågy","Osö","Ay","Öv","Jå","Msö","Ng","Rsö","Öbn","Hnb","Hnn","Ltr","Tl","Ls"],
+  "tabellStrackor": [
+    { "name": "Ånge – Ånge godsbangård – Ångebyn", "start": "Åg", "end": "Ågy" },
+    { "name": "Ånge – Ramsjö", "start": "Åg", "end": "Rsö" },
+    { "name": "Ramsjö – Ljusdal", "start": "Rsö", "end": "Ls" }
+  ]
+},
+{
+  "id": "ANG_ange_till_sundsvalls_central",
+  "linjebokId": "ANG",
+  "name": "ånge_till_sundsvalls_central",
+  "ordning": ["Åg","Åggb","Ei","Cas","Jbg","Ljv","Ljun","Ft","To","Bog","Visk","Std","Nsö","Vm","Töv","Nta","Suv","Suc"],
+  "tabellStrackor": [
+    { "name": "Ånge – Nacksta", "start": "Åg", "end": "Nta" },
+    { "name": "Nacksta – Sundsvalls central", "start": "Nta", "end": "Suc" }
+  ]
