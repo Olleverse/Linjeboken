@@ -2,31 +2,93 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linjebok & fast sträcka</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Linjebok + Hastighetssträcka</title>
   <style>
-    body { font-family: sans-serif; margin: 20px; max-width: 620px; }
-    input { width: 100%; padding: 12px; margin: 8px 0; font-size: 1.1rem; }
-    button { padding: 12px 16px; font-size: 1.1rem; width: 100%; }
-    .card { margin-top: 16px; padding: 14px; background: #f3f3f3; border-radius: 8px; }
-    .muted { opacity: .8; }
-    .line { padding: 8px 0; border-bottom: 1px solid #ddd; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 18px; max-width: 720px; }
+    h1 { font-size: 1.35rem; margin: 0 0 6px; }
+    .muted { opacity: .75; font-size: .98rem; }
+    .row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+    input, textarea { width: 100%; box-sizing: border-box; padding: 12px; font-size: 1.05rem; border: 1px solid #ccc; border-radius: 10px; }
+    button { padding: 12px 14px; border: 0; border-radius: 12px; font-size: 1.05rem; cursor: pointer; }
+    button.primary { width: 100%; }
+    .card { margin-top: 14px; padding: 14px; background: #f3f3f3; border-radius: 12px; }
+    .line { padding: 10px 0; border-bottom: 1px solid #ddd; }
     .line:last-child { border-bottom: none; }
+    .pillbar { display: flex; gap: 10px; margin-top: 10px; }
+    .pillbar button { background: #e9e9e9; }
+    .admin { display:none; margin-top: 12px; }
+    .admin h2 { font-size: 1.1rem; margin: 12px 0 8px; }
+    .help { font-size: .95rem; opacity: .85; line-height: 1.35; }
+    .two { display: grid; gap: 10px; grid-template-columns: 1fr; }
+    @media (min-width: 760px) { .two { grid-template-columns: 1fr 1fr; } }
+    code { background: rgba(0,0,0,.06); padding: 2px 6px; border-radius: 6px; }
   </style>
 </head>
 <body>
 
-  <h2>Linjebok & fast sträcka</h2>
-  <div class="muted">Skriv start och slutdriftplats (kod eller namn).</div>
+  <h1>Linjebok + hastighets-sträcka</h1>
+  <div class="muted">
+    Skriv start/slutdriftplats (kod eller namn). Appen visar vilken linjebok och vilka sträckor i hastighets-PDF:en du ska slå upp.
+  </div>
 
-  <input id="start" list="dpList" placeholder="Start (t.ex. Sk eller Skövde)" autocomplete="off" />
-  <input id="slut" list="dpList" placeholder="Slut (t.ex. G eller Göteborg)" autocomplete="off" />
+  <div class="row">
+    <input id="start" list="dpList" placeholder="Start (t.ex. Sk eller Skövde)" autocomplete="off" />
+    <input id="slut"  list="dpList" placeholder="Slut (t.ex. G eller Göteborg)" autocomplete="off" />
+    <datalist id="dpList"></datalist>
 
-  <datalist id="dpList"></datalist>
+    <button class="primary" onclick="searchRoute()">Sök</button>
+  </div>
 
-  <button onclick="searchRoute()">Sök</button>
+  <div class="pillbar">
+    <button onclick="toggleAdmin()">Redigera data</button>
+    <button onclick="resetToDefault()">Återställ standarddata</button>
+  </div>
 
   <div id="output" class="card"></div>
+
+  <div id="admin" class="admin card">
+    <h2>Redigera data (enkelt)</h2>
+    <div class="help">
+      Här kan du klistra in data utan att ändra kod.
+      <br><br>
+      <strong>1) Linjebok</strong>: skriv ett ID och namn.
+      <br>
+      <strong>2) Driftplatser i ordning</strong>: en rad per driftplats: <code>KOD;Namn</code>
+      <br>
+      <strong>3) Sträckor i hastighets-PDF</strong>: en rad per sträcka: <code>Sträcknamn|STARTKOD|SLUTKOD</code>
+      <br><br>
+      När du klickar <strong>Spara</strong> används datan direkt (sparas i din webbläsare).
+    </div>
+
+    <div class="two" style="margin-top:10px;">
+      <div>
+        <label><strong>Linjebok ID</strong></label>
+        <input id="lbId" placeholder="t.ex. D5_Sk_G" />
+      </div>
+      <div>
+        <label><strong>Linjebok namn</strong></label>
+        <input id="lbName" placeholder="t.ex. TC Göteborg – Underlag till linjebok D5: Sk → G" />
+      </div>
+    </div>
+
+    <div style="margin-top:10px;">
+      <label><strong>Driftplatser i ordning</strong> (en per rad: <code>KOD;Namn</code>)</label>
+      <textarea id="dpText" rows="10" placeholder="Sk;Skövde central&#10;..."></textarea>
+    </div>
+
+    <div style="margin-top:10px;">
+      <label><strong>Sträckor i hastighets-PDF</strong> (en per rad: <code>Namn|START|SLUT</code>)</label>
+      <textarea id="hsText" rows="8" placeholder="Skövde C – Partille|Sk|P&#10;Partille – Göteborg C|P|G"></textarea>
+    </div>
+
+    <div class="pillbar" style="margin-top:12px;">
+      <button onclick="saveAdmin()">Spara</button>
+      <button onclick="hideAdmin()">Stäng</button>
+    </div>
+
+    <div id="adminMsg" class="muted" style="margin-top:10px;"></div>
+  </div>
 
   <script src="app.js"></script>
 </body>
