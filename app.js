@@ -3,6 +3,7 @@ let DATA = null;
 async function loadData() {
   if (DATA) return DATA;
   DATA = await fetch("data.json").then(r => r.json());
+  buildAutoSuggest(DATA);
   return DATA;
 }
 
@@ -10,16 +11,44 @@ function normalize(s) {
   return (s || "").toLowerCase().trim();
 }
 
-function findDriftplats(input, driftsplatser) {
-  const q = normalize(input);
-  if (!q) return null;
+function buildAutoSuggest(data) {
+  const list = document.getElementById("dpList");
+  if (!list) return;
+  list.innerHTML = "";
 
+  // Ex: "Skövde central (Sk)"
+  for (const dp of (data.driftplatser || [])) {
+    const opt = document.createElement("option");
+    opt.value = `${dp.name} (${dp.code})`;
+    list.appendChild(opt);
+
+    // även kod ensam, så man kan välja direkt
+    const opt2 = document.createElement("option");
+    opt2.value = dp.code;
+    list.appendChild(opt2);
+  }
+}
+
+function parseCodeFromInput(input, driftsplatser) {
+  const q = normalize(input);
+
+  // Om användaren skrev "Namn (CODE)"
+  const m = input.match(/\(([^)]+)\)\s*$/);
+  if (m) {
+    const code = normalize(m[1]);
+    const dp = driftsplatser.find(d => normalize(d.code) === code);
+    if (dp) return dp;
+  }
+
+  // Exakt kod
   const exactCode = driftsplatser.find(d => normalize(d.code) === q);
   if (exactCode) return exactCode;
 
+  // Exakt namn
   const exactName = driftsplatser.find(d => normalize(d.name) === q);
   if (exactName) return exactName;
 
+  // Innehåller
   return driftsplatser.find(d => normalize(d.name).includes(q)) || null;
 }
 
@@ -83,110 +112,85 @@ function segmentCodesBetween(pathCodes, start, end) {
 }
 
 function matchFastaStrackor(pathCodes, fastaStrackor) {
-  // Returnera bara de fasta sträckor som faktiskt korsas av rutten
   const used = [];
   for (const fs of (fastaStrackor || [])) {
     const seg = segmentCodesBetween(pathCodes, fs.start, fs.end);
     if (!seg) continue;
 
-    // “korsas” om rutten innehåller minst en nod inom intervallet
-    const covered = seg.some(c => pathCodes.includes(c));
-    if (!covered) continue;
-
-    // Mer strikt: rutten måste gå över en del av intervallet
-    // Vi tar med den om både start och end ligger på rutten, eller om rutten passerar gränsen (t.ex. P)
-    const startOn = pathCodes.includes(fs.start);
-    const endOn = pathCodes.includes(fs.end);
-
-    if (startOn && endOn) {
-      used.push({ ...fs, codes: seg });
-      continue;
-    }
-
-    // Om rutten börjar/slutar inne i intervallet, eller passerar en gränspunkt:
+    // Ta med om rutten faktiskt träffar intervallet
     const anyInside = seg.some(c => pathCodes.includes(c));
-    if (anyInside) used.push({ ...fs, codes: seg });
+    if (!anyInside) continue;
+
+    // Vill vi vara striktare? (Både start och end på rutten)
+    // För nu: om rutten korsar eller innehåller intervallet, ta med.
+    used.push(fs);
   }
 
-  // Dedupe på id
   const seen = new Set();
   return used.filter(u => (seen.has(u.id) ? false : (seen.add(u.id), true)));
 }
 
-function renderResult({ start, end, pathEdges, data }) {
+function renderSimple({ start, end, pathEdges, data }) {
   const output = document.getElementById("output");
-  const lbById = new Map((data.linjebocker || []).map(lb => [lb.id, lb]));
 
+  const lbById = new Map((data.linjebocker || []).map(lb => [lb.id, lb]));
   const allLB = unique(pathEdges.flatMap(e => e.linjebocker || []));
-  const linjebockerHtml = allLB.map(id => {
-    const lb = lbById.get(id);
-    return lb ? `${lb.id}: ${lb.name}` : id;
-  }).join("<br>");
 
   const pathCodes = pathCodesFromEdges(start.code, pathEdges);
   const usedFasta = matchFastaStrackor(pathCodes, data.fastaStrackor);
 
-  const fastaHtml = usedFasta.length
-    ? usedFasta.map(fs => {
-        const routeHit = segmentCodesBetween(pathCodes, fs.start, fs.end);
-        // visa just den del av fasta sträckan som matchar rutten
-        const shown = routeHit ? routeHit.join(" → ") : fs.start + " → " + fs.end;
-        return `<div style="padding:6px 0;border-bottom:1px solid #ddd;">
-          <div><strong>${fs.name}</strong> (klass ${fs.klass})</div>
-          <div style="opacity:.85;font-size:.95em;">${shown}</div>
-        </div>`;
+  const linjebockerHtml = allLB.length
+    ? allLB.map(id => {
+        const lb = lbById.get(id);
+        return `<div class="line"><strong>${lb ? lb.id : id}</strong><div>${lb ? lb.name : ""}</div></div>`;
       }).join("")
-    : "—";
+    : `<div class="line">—</div>`;
 
-  const segmentsHtml = pathEdges.map((e, i) => {
-    const lbs = (e.linjebocker || []).map(id => lbById.get(id)?.name || id).join(", ");
-    return `
-      <div style="padding:8px 0;border-bottom:1px solid #ddd;">
-        <div><strong>${i + 1}.</strong> ${e.from} → ${e.to}</div>
-        <div>Linjebok: ${lbs || "?"}</div>
-      </div>
-    `;
-  }).join("");
+  const fastaHtml = usedFasta.length
+    ? usedFasta.map(fs =>
+        `<div class="line"><strong>${fs.name}</strong><div>Klass: ${fs.klass}</div></div>`
+      ).join("")
+    : `<div class="line">—</div>`;
 
   output.innerHTML = `
-    <div><strong>Start:</strong> ${start.name} (${start.code})</div>
-    <div><strong>Slut:</strong> ${end.name} (${end.code})</div>
+    <div><strong>${start.name} (${start.code})</strong> → <strong>${end.name} (${end.code})</strong></div>
     <br>
-
-    <div><strong>Linjebok/underlag som träffas:</strong><br>${linjebockerHtml || "—"}</div>
+    <div><strong>1) Linjebok</strong></div>
+    ${linjebockerHtml}
     <br>
-
-    <div><strong>Fasta sträckor (för tabeller):</strong></div>
+    <div><strong>2) Fast sträcka</strong></div>
     ${fastaHtml}
-    <br>
-
-    <div><strong>Delsträckor (i ordning):</strong></div>
-    ${segmentsHtml || "—"}
   `;
 }
 
 async function searchRoute() {
   const data = await loadData();
+  const driftsplatser = data.driftplatser || [];
+  const edges = data.edges || [];
+
   const startInput = document.getElementById("start").value;
   const endInput = document.getElementById("slut").value;
   const output = document.getElementById("output");
 
-  const start = findDriftplats(startInput, data.driftplatser || []);
-  const end = findDriftplats(endInput, data.driftplatser || []);
+  const start = parseCodeFromInput(startInput, driftsplatser);
+  const end = parseCodeFromInput(endInput, driftsplatser);
 
   if (!start || !end) {
-    output.innerHTML = "Kunde inte hitta start och/eller slut. Testa driftplatskod (t.ex. Sk, G) eller del av namnet.";
+    output.innerHTML = "Kunde inte hitta start/slut. Välj från listan eller skriv driftplatskod.";
     return;
   }
 
-  const graph = buildGraph(data.edges || []);
+  const graph = buildGraph(edges);
   const pathEdges = bfsPath(graph, start.code, end.code);
 
   if (!pathEdges) {
-    output.innerHTML = "Ingen rutt hittades i din data (du saknar troligen någon länk/edge i data.json).";
+    output.innerHTML = "Ingen rutt hittades i din data (saknar någon länk/edge i data.json).";
     return;
   }
 
-  renderResult({ start, end, pathEdges, data });
+  renderSimple({ start, end, pathEdges, data });
 }
+
+// Ladda data direkt så autosuggest fylls när sidan öppnas
+loadData();
 
