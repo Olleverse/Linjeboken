@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Linjebok + Hastighetssträcka</title>
+  <title>Linjebok + hastighetssträcka</title>
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 18px; max-width: 720px; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 18px; max-width: 780px; }
     h1 { font-size: 1.35rem; margin: 0 0 6px; }
     .muted { opacity: .75; font-size: .98rem; }
     .row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
-    input, textarea { width: 100%; box-sizing: border-box; padding: 12px; font-size: 1.05rem; border: 1px solid #ccc; border-radius: 10px; }
+    input, textarea, select { width: 100%; box-sizing: border-box; padding: 12px; font-size: 1.05rem; border: 1px solid #ccc; border-radius: 10px; }
     button { padding: 12px 14px; border: 0; border-radius: 12px; font-size: 1.05rem; cursor: pointer; }
     button.primary { width: 100%; }
+    button.small { padding: 10px 12px; font-size: 1rem; }
     .card { margin-top: 14px; padding: 14px; background: #f3f3f3; border-radius: 12px; }
     .line { padding: 10px 0; border-bottom: 1px solid #ddd; }
     .line:last-child { border-bottom: none; }
-    .pillbar { display: flex; gap: 10px; margin-top: 10px; }
+    .pillbar { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
     .pillbar button { background: #e9e9e9; }
     .admin { display:none; margin-top: 12px; }
     .admin h2 { font-size: 1.1rem; margin: 12px 0 8px; }
@@ -23,13 +24,17 @@
     .two { display: grid; gap: 10px; grid-template-columns: 1fr; }
     @media (min-width: 760px) { .two { grid-template-columns: 1fr 1fr; } }
     code { background: rgba(0,0,0,.06); padding: 2px 6px; border-radius: 6px; }
+    .ok { color: #0b6; font-weight: 600; }
+    .warn { color: #b60; font-weight: 600; }
+    .bad { color: #c00; font-weight: 700; }
+    .divider { height: 1px; background: #ddd; margin: 10px 0; }
   </style>
 </head>
 <body>
 
-  <h1>Linjebok + hastighets-sträcka</h1>
+  <h1>Linjebok + sträcka i hastighets-PDF</h1>
   <div class="muted">
-    Skriv start/slutdriftplats (kod eller namn). Appen visar vilken linjebok och vilka sträckor i hastighets-PDF:en du ska slå upp.
+    Skriv start/slut (kod eller namn). Appen visar vilken linjebok och vilka tabell-sträckor du ska slå upp i hastighets-PDF:en.
   </div>
 
   <div class="row">
@@ -41,34 +46,34 @@
   </div>
 
   <div class="pillbar">
-    <button onclick="toggleAdmin()">Redigera data</button>
-    <button onclick="resetToDefault()">Återställ standarddata</button>
+    <button class="small" onclick="requestAdmin()">Redigera data (PIN)</button>
+    <button class="small" onclick="undoLastSave()">Ångra senaste sparning</button>
+    <button class="small" onclick="resetToDefault()">Återställ standarddata</button>
   </div>
 
-  <div id="output" class="card"></div>
+  <div id="output" class="card">Redo.</div>
 
   <div id="admin" class="admin card">
-    <h2>Redigera data (enkelt)</h2>
+    <h2>Admin: Redigera dataset (sparas bara lokalt i din webbläsare)</h2>
+
     <div class="help">
-      Här kan du klistra in data utan att ändra kod.
-      <br><br>
-      <strong>1) Linjebok</strong>: skriv ett ID och namn.
-      <br>
-      <strong>2) Driftplatser i ordning</strong>: en rad per driftplats: <code>KOD;Namn</code>
-      <br>
-      <strong>3) Sträckor i hastighets-PDF</strong>: en rad per sträcka: <code>Sträcknamn|STARTKOD|SLUTKOD</code>
-      <br><br>
-      När du klickar <strong>Spara</strong> används datan direkt (sparas i din webbläsare).
+      <strong>Så här matar du in utan kod:</strong><br>
+      1) Linjebok: ID + namn<br>
+      2) Driftplatser i ordning: en rad per driftplats: <code>KOD;Namn</code><br>
+      3) Sträckor i hastighets-PDF: en rad per sträcka: <code>Sträcknamn|STARTKOD|SLUTKOD</code><br><br>
+      <strong>Tips:</strong> Om någon råkar kladda kan du alltid trycka <em>Återställ standarddata</em> eller <em>Ångra senaste sparning</em>.
     </div>
 
-    <div class="two" style="margin-top:10px;">
+    <div class="divider"></div>
+
+    <div class="two">
       <div>
         <label><strong>Linjebok ID</strong></label>
         <input id="lbId" placeholder="t.ex. D5_Sk_G" />
       </div>
       <div>
         <label><strong>Linjebok namn</strong></label>
-        <input id="lbName" placeholder="t.ex. TC Göteborg – Underlag till linjebok D5: Sk → G" />
+        <input id="lbName" placeholder="t.ex. TC Göteborg – Underlag..." />
       </div>
     </div>
 
@@ -83,11 +88,17 @@
     </div>
 
     <div class="pillbar" style="margin-top:12px;">
-      <button onclick="saveAdmin()">Spara</button>
-      <button onclick="hideAdmin()">Stäng</button>
+      <button class="small" onclick="previewAdmin()">Förhandsgranska</button>
+      <button class="small" onclick="saveAdmin()">Spara</button>
+      <button class="small" onclick="hideAdmin()">Stäng</button>
     </div>
 
     <div id="adminMsg" class="muted" style="margin-top:10px;"></div>
+
+    <div id="previewBox" class="card" style="display:none; margin-top:10px; background:#fff;">
+      <div><strong>Förhandsgranskning</strong></div>
+      <div id="previewContent" class="muted" style="margin-top:8px;"></div>
+    </div>
   </div>
 
   <script src="app.js"></script>
