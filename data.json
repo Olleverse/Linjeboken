@@ -1,14 +1,81 @@
 {
   "driftplatser": [
-    { "code": "G", "name": "Göteborg C" },
-    { "code": "Mø", "name": "Mölndal" },
-    { "code": "K", "name": "Kungsbacka" }
+    { "code": "Sk", "name": "Skövde central" },
+    { "code": "Rmtp", "name": "Regumatorp" },
+    { "code": "Ss", "name": "Stenstorp" },
+    { "code": "Fn", "name": "Falköpings norra" },
+    { "code": "F", "name": "Falköpings central" },
+    { "code": "Fby", "name": "Floby" },
+    { "code": "Kä", "name": "Källeryd" },
+    { "code": "Hrc", "name": "Herrljunga central" },
+    { "code": "Hrv", "name": "Herrljunga västra" },
+    { "code": "Agg", "name": "Algutsgården" },
+    { "code": "A", "name": "Alingsås" },
+    { "code": "Bgs", "name": "Bryngenäs" },
+    { "code": "Vbd", "name": "Västra Bodarne" },
+    { "code": "Ns", "name": "Norsesund" },
+    { "code": "Ndv", "name": "Norsesund västra" },
+    { "code": "Fd", "name": "Floda" },
+    { "code": "Sn", "name": "Stenkullen" },
+    { "code": "Lr", "name": "Lerum" },
+    { "code": "Asd", "name": "Aspedalen" },
+    { "code": "Apn", "name": "Aspen" },
+    { "code": "J", "name": "Jonsered östra" },
+    { "code": "Jv", "name": "Jonsered västra" },
+    { "code": "P", "name": "Partille" },
+    { "code": "Sel", "name": "Sävedalen" },
+    { "code": "Gsv", "name": "Göteborg Sävenäs" },
+    { "code": "Or", "name": "Olskroken" },
+    { "code": "G", "name": "Göteborgs central" }
   ],
+
   "linjebocker": [
-    { "id": "L1", "name": "Västkustbanan Göteborg–Kungsbacka" }
+    { "id": "D5_Sk_G", "name": "TC Göteborg – Underlag till linjebok D5: Sk → G" }
   ],
+
   "edges": [
-    { "from": "G", "to": "Mø", "bandel": "401", "linjebocker": ["L1"] },
-    { "from": "Mø", "to": "K", "bandel": "401", "linjebocker": ["L1"] }
+    { "from": "Sk", "to": "Rmtp", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Rmtp", "to": "Ss", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Ss", "to": "Fn", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Fn", "to": "F", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "F", "to": "Fby", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Fby", "to": "Kä", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Kä", "to": "Hrc", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Hrc", "to": "Hrv", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Hrv", "to": "Agg", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Agg", "to": "A", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "A", "to": "Bgs", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Bgs", "to": "Vbd", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Vbd", "to": "Ns", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Ns", "to": "Ndv", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Ndv", "to": "Fd", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Fd", "to": "Sn", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Sn", "to": "Lr", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Lr", "to": "Asd", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Asd", "to": "Apn", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Apn", "to": "J", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "J", "to": "Jv", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Jv", "to": "P", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "P", "to": "Sel", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Sel", "to": "Gsv", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Gsv", "to": "Or", "bandel": "?", "linjebocker": ["D5_Sk_G"] },
+    { "from": "Or", "to": "G", "bandel": "?", "linjebocker": ["D5_Sk_G"] }
+  ],
+
+  "fastaStrackor": [
+    {
+      "id": "SkC-Partille",
+      "name": "Skövde C – Partille",
+      "start": "Sk",
+      "end": "P",
+      "klass": "B"
+    },
+    {
+      "id": "Partille-GbgC",
+      "name": "Partille – Göteborg C",
+      "start": "P",
+      "end": "G",
+      "klass": "D"
+    }
   ]
 }
