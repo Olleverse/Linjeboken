@@ -1,4 +1,6 @@
 {
+  "korridorer": [
+    {
       "id": "GBG_almedal_till_varnamo_central",
       "linjebokId": "GBG",
       "name": "almedal_till_värnamo-central",
@@ -8,7 +10,7 @@
         { "name": "Borås central – Värnamo central", "start": "Bsc", "end": "Väc" }
       ]
     },
-{
+    {
       "id": "GBG_alvhem_till_lilla_edet",
       "linjebokId": "GBG",
       "name": "alvhem_till_lilla_edet",
@@ -179,3 +181,6 @@
         { "name": "Uddevalla Central – Öxnered", "start": "Uv", "end": "Öx" },
         { "name": "Öxnered – Herrljunga central", "start": "Öx", "end": "Hrc" }
       ]
+    }
+  ]
+}
