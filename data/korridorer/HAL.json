@@ -1,1 +1,156 @@
-
+ {
+  "id": "HAL_bofors_till_stromtorp",
+  "linjebokId": "HAL",
+  "name": "bofors_till_strömtorp",
+  "ordning": ["Bof","Ksac","Kasd","Srt"],
+  "tabellStrackor": [
+    { "name": "Bofors – Strömtorp", "start": "Bof", "end": "Srt" }
+  ]
+},
+{
+  "id": "HAL_domnarvet_till_frovi",
+  "linjebokId": "HAL",
+  "name": "domnarvet_till_frövi",
+  "ordning": ["Dmn","Blgc","Slnä","Uly","Rmh","Gäg","La","Khy","Gg","Ggm","Stl","Kpg","Rlå","Sr","Ld","Vdv","Fv"],
+  "tabellStrackor": [
+    { "name": "Domnarvet – Borlänge central", "start": "Dmn", "end": "Blgc" },
+    { "name": "Borlänge central – Ludvika", "start": "Blgc", "end": "La" },
+    { "name": "Ludvika – Grängesberg", "start": "La", "end": "Gg" },
+    { "name": "Grängesberg – Ställdalen", "start": "Gg", "end": "Stl" },
+    { "name": "Ställdalen – Frövi", "start": "Stl", "end": "Fv" }
+  ]
+},
+{
+  "id": "HAL_filipstad_till_daglosen",
+  "linjebokId": "HAL",
+  "name": "filipstad_till_daglösen",
+  "ordning": ["Fid","Dgö"],
+  "tabellStrackor": [
+    { "name": "Filipstad – Daglösen", "start": "Fid", "end": "Dgö" }
+  ]
+},
+{
+  "id": "HAL_frovi_till_hallsbergs_rangerbangard",
+  "linjebokId": "HAL",
+  "name": "frövi_till_hallsbergs_rangerbangård",
+  "ordning": ["Fv","Er","Hsa","Ör","Öb","Ms","Kla","Hpbg","Hrbg"],
+  "tabellStrackor": [
+    { "name": "Frövi – Hallsbergs personbangård", "start": "Fv", "end": "Hpbg" },
+    { "name": "Hallsbergs personbangård – Hallsbergs rangerbangård", "start": "Hpbg", "end": "Hrbg" }
+  ]
+},
+{
+  "id": "HAL_frovi_till_jadersbruk",
+  "linjebokId": "HAL",
+  "name": "frövi_till_jädersbruk",
+  "ordning": ["Fv","Feb","Ålg","Jbk"],
+  "tabellStrackor": [
+    { "name": "Frövi – Jädersbruk", "start": "Fv", "end": "Jbk" }
+  ]
+},
+{
+  "id": "HAL_grangesberg_till_stalldalen",
+  "linjebokId": "HAL",
+  "name": "grängesberg_till_ställdalen",
+  "ordning": ["Gg","Ggm","Stl"],
+  "tabellStrackor": [
+    { "name": "Grängesberg – Ställdalen (Silverhöjdsspåret)", "start": "Gg", "end": "Stl" }
+  ]
+},
+{
+  "id": "HAL_hallsbergs_personbangard_till_mjolby",
+  "linjebokId": "HAL",
+  "name": "hallsbergs_personbangård_till_mjölby",
+  "ordning": ["Hpbg","Hrbg","Skms","Å","Skm","Lmo","Jho","D","Öna","Mot","Fgl","Skn","My"],
+  "tabellStrackor": [
+    { "name": "Hallsbergs personbangård – Skymossen", "start": "Hpbg", "end": "Skms" },
+    { "name": "Hallsbergs personbangård – Hallsbergs rangerbangård", "start": "Hpbg", "end": "Hrbg" },
+    { "name": "Hallsbergs rangerbangård – Skymossen", "start": "Hrbg", "end": "Skms" },
+    { "name": "Skymossen – Stenkumla", "start": "Skms", "end": "Skm" },
+    { "name": "Stenkumla – Mjölby", "start": "Skm", "end": "My" }
+  ]
+},
+{
+  "id": "HAL_jadersbruk_till_hovsta",
+  "linjebokId": "HAL",
+  "name": "jädersbruk_till_hovsta",
+  "ordning": ["Jbk","Öa","Aä","Hsa"],
+  "tabellStrackor": [
+    { "name": "Jädersbruk – Ökna", "start": "Jbk", "end": "Öa" },
+    { "name": "Ökna – Alväng", "start": "Öa", "end": "Aä" },
+    { "name": "Alväng – Hovsta", "start": "Aä", "end": "Hsa" }
+  ]
+},
+{
+  "id": "HAL_karlstad_till_skoghall",
+  "linjebokId": "HAL",
+  "name": "karlstad_till_skoghall",
+  "ordning": ["Kö","Ksc","Skog"],
+  "tabellStrackor": [
+    { "name": "Karlstads östra – Karlstads central", "start": "Kö", "end": "Ksc" },
+    { "name": "Karlstads central – Skoghall", "start": "Ksc", "end": "Skog" }
+  ]
+},
+{
+  "id": "HAL_karlstads_central_till_skoghall",
+  "linjebokId": "HAL",
+  "name": "karlstads_central_till_skoghall",
+  "ordning": ["Ksc","Skog"],
+  "tabellStrackor": [
+    { "name": "Karlstads central – Skoghall", "start": "Ksc", "end": "Skog" }
+  ]
+},
+{
+  "id": "HAL_katrineholms_central_till_skovde_central",
+  "linjebokId": "HAL",
+  "name": "katrineholms_central_till_skövde_central",
+  "ordning": ["K","Bt","Vr","Hgö","Km","På","Hpbg","Hrbg","Hpn","Täl","Öj","Vt","Lln","Lå","Väv","Fa","Gdö","Äl","Sle","T","Mh","Vä","Sk"],
+  "tabellStrackor": [
+    { "name": "Katrineholms central – Hallsbergs personbangård", "start": "K", "end": "Hpbg" },
+    { "name": "Hallsbergs personbangård – Hallsbergs rangerbangård – Tälle – Östansjö", "start": "Hpbg", "end": "Öj" },
+    { "name": "Östansjö – Laxå", "start": "Öj", "end": "Lå" },
+    { "name": "Laxå – Gårdsjö", "start": "Lå", "end": "Gdö" },
+    { "name": "Gårdsjö – Skövde central", "start": "Gdö", "end": "Sk" }
+  ]
+},
+{
+  "id": "HAL_kil_till_torsby",
+  "linjebokId": "HAL",
+  "name": "kil_till_torsby",
+  "ordning": ["Kil","Tgs","Tlt","Frå","Bäb","Vät","Öjr","Rts","Kns","Sun","Imr","Ebk","Ibe","Lyv","Bdb","Ol","Stje","Toy"],
+  "tabellStrackor": [
+    { "name": "Kil – Torsby", "start": "Kil", "end": "Toy" }
+  ]
+},
+{
+  "id": "HAL_laxa_till_charlottenberg",
+  "linjebokId": "HAL",
+  "name": "laxå_till_charlottenberg",
+  "ordning": ["Lå","Hs","Svå","Dg","Srt","Bjb","Khn","Öl","Ve","Srr","Kvä","Kö","Ksc","Skr","Kud","Sån","Kil","Fgå","Len","Hbd","Buk","Bu","En","Ar","Ot","Åt","Lrt","Ås","Cg"],
+  "tabellStrackor": [
+    { "name": "Laxå – Karlstad Välsviken", "start": "Lå", "end": "Kvä" },
+    { "name": "Karlstad Välsviken – Karlstads central", "start": "Kvä", "end": "Ksc" },
+    { "name": "Karlstads central – Klingerud", "start": "Ksc", "end": "Kud" },
+    { "name": "Klingerud – Stenåsen", "start": "Kud", "end": "Sån" },
+    { "name": "Stenåsen – Kil", "start": "Sån", "end": "Kil" },
+    { "name": "Kil – Charlottenberg", "start": "Kil", "end": "Cg" }
+  ]
+},
+{
+  "id": "HAL_nykroppa_till_kristinehamn",
+  "linjebokId": "HAL",
+  "name": "nykroppa_till_kristinehamn",
+  "ordning": ["Nka","Bad","Sf","Nd","Spjb","Khn"],
+  "tabellStrackor": [
+    { "name": "Nykroppa – Kristinehamn", "start": "Nka", "end": "Khn" }
+  ]
+},
+{
+  "id": "HAL_stalldalen_till_kil",
+  "linjebokId": "HAL",
+  "name": "ställdalen_till_kil",
+  "ordning": ["Stl","Skrt","Brö","Keb","Sif","Hlf","Ghyn","Ghy","Loka","Hlt","Nka","Dgö","Gdl","Sdm","Kil"],
+  "tabellStrackor": [
+    { "name": "Ställdalen – Nykroppa", "start": "Stl", "end": "Nka" },
+    { "name": "Nykroppa – Kil", "start": "Nka", "end": "Kil" }
+  ]
