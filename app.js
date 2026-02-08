@@ -1,27 +1,86 @@
 // =========================
-//  Linjebok + Hastighetssträcka (superenkel)
-//  - Ingen server
-//  - Autosuggest
-//  - Admin: klistra in data, spara i localStorage
+// Linjebok + sträcka i hastighets-PDF
+// - Autosuggest
+// - Admin bakom PIN
+// - Förhandsgranska innan spara
+// - Backup/Ångra
+// - Återställ standarddata
+//
+// Viktigt: admin-data sparas i localStorage och påverkar bara den som redigerar.
 // =========================
 
-const LS_KEY = "lokapp_dataset_v1";
-let DATA = null;
+const LS_KEY = "lokapp_dataset_v2";
+const LS_BACKUP_KEY = "lokapp_dataset_v2_backup";
 
-async function loadDefaultData() {
-  const res = await fetch("data.json");
-  return await res.json();
-}
+let DEFAULT_DATA = null;
+let ACTIVE_DATA = null;
 
+// ---------- Helpers ----------
 function normalize(s) {
   return (s || "").toLowerCase().trim();
 }
 
-function setMsg(elId, msg) {
-  const el = document.getElementById(elId);
-  if (el) el.textContent = msg || "";
+function escapeHtml(s) {
+  return (s || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
+function setMsg(elId, msg) {
+  const el = document.getElementById(elId);
+  if (el) el.innerHTML = msg || "";
+}
+
+function ok(msg) { return `<span class="ok">✅ ${escapeHtml(msg)}</span>`; }
+function warn(msg) { return `<span class="warn">⚠️ ${escapeHtml(msg)}</span>`; }
+function bad(msg) { return `<span class="bad">⛔ ${escapeHtml(msg)}</span>`; }
+
+// ---------- Load data ----------
+async function loadDefaultData() {
+  if (DEFAULT_DATA) return DEFAULT_DATA;
+  const res = await fetch("data.json");
+  DEFAULT_DATA = await res.json();
+  return DEFAULT_DATA;
+}
+
+function loadLocalData() {
+  const raw = localStorage.getItem(LS_KEY);
+  if (!raw) return null;
+  try { return JSON.parse(raw); }
+  catch { return null; }
+}
+
+function saveLocalData(dataset) {
+  localStorage.setItem(LS_KEY, JSON.stringify(dataset));
+}
+
+function saveBackup(dataset) {
+  localStorage.setItem(LS_BACKUP_KEY, JSON.stringify(dataset));
+}
+
+function loadBackup() {
+  const raw = localStorage.getItem(LS_BACKUP_KEY);
+  if (!raw) return null;
+  try { return JSON.parse(raw); }
+  catch { return null; }
+}
+
+async function getActiveData() {
+  if (ACTIVE_DATA) return ACTIVE_DATA;
+
+  const def = await loadDefaultData();
+  const local = loadLocalData();
+
+  ACTIVE_DATA = local || def;
+  buildAutoSuggest(ACTIVE_DATA);
+
+  return ACTIVE_DATA;
+}
+
+// ---------- Autosuggest ----------
 function buildAutoSuggest(data) {
   const list = document.getElementById("dpList");
   if (!list) return;
@@ -29,12 +88,10 @@ function buildAutoSuggest(data) {
 
   const dps = data?.driftplatser || [];
   for (const dp of dps) {
-    // "Skövde central (Sk)"
     const opt = document.createElement("option");
     opt.value = `${dp.name} (${dp.code})`;
     list.appendChild(opt);
 
-    // även kod ensam
     const opt2 = document.createElement("option");
     opt2.value = dp.code;
     list.appendChild(opt2);
@@ -44,7 +101,7 @@ function buildAutoSuggest(data) {
 function parseDriftplats(input, driftsplatser) {
   if (!input) return null;
 
-  // Om användaren valde "Namn (CODE)"
+  // "Namn (CODE)"
   const m = input.match(/\(([^)]+)\)\s*$/);
   if (m) {
     const code = normalize(m[1]);
@@ -62,13 +119,14 @@ function parseDriftplats(input, driftsplatser) {
   dp = driftsplatser.find(d => normalize(d.name) === q);
   if (dp) return dp;
 
-  // "contains" i namn
+  // Contains
   dp = driftsplatser.find(d => normalize(d.name).includes(q));
   if (dp) return dp;
 
   return null;
 }
 
+// ---------- Core matching logic ----------
 function getIndexMap(orderedCodes) {
   const idx = new Map();
   orderedCodes.forEach((c, i) => idx.set(c, i));
@@ -79,7 +137,7 @@ function overlapsInterval(aMin, aMax, bMin, bMax) {
   return !(bMax < aMin || bMin > aMax);
 }
 
-// Matcha vilka sträckor i hastighets-PDF som överlappar resan
+// Start/slut -> vilka tabell-sträckor som överlappar resan
 function matchHastighetsStrackor(orderedCodes, hastighetsStrackor, startCode, endCode) {
   const idx = getIndexMap(orderedCodes);
   const a = idx.get(startCode);
@@ -108,16 +166,17 @@ function matchHastighetsStrackor(orderedCodes, hastighetsStrackor, startCode, en
     return xi - yi;
   });
 
-  // dedupe på id (om du råkar klistra in dubbelt)
+  // dedupe
   const seen = new Set();
   return used.filter(u => (seen.has(u.id) ? false : (seen.add(u.id), true)));
 }
 
 function renderOutput({ start, end, linjebok, usedStrackor }) {
   const out = document.getElementById("output");
+
   const strackorHtml = usedStrackor.length
     ? usedStrackor.map(s => `<div class="line"><strong>${escapeHtml(s.name)}</strong></div>`).join("")
-    : `<div class="line">Ingen träff. (Kontrollera att start/slut ligger i samma dataset och att sträckorna är inlagda.)</div>`;
+    : `<div class="line">${warn("Ingen träff på sträckor i hastighets-PDF.")}<div class="muted">Kontrollera att sträckorna är inlagda och att start/slut finns i driftplatsordningen.</div></div>`;
 
   out.innerHTML = `
     <div class="line">
@@ -136,39 +195,8 @@ function renderOutput({ start, end, linjebok, usedStrackor }) {
   `;
 }
 
-function escapeHtml(s) {
-  return (s || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-async function getData() {
-  if (DATA) return DATA;
-
-  // 1) Försök läsa från localStorage
-  const raw = localStorage.getItem(LS_KEY);
-  if (raw) {
-    try {
-      DATA = JSON.parse(raw);
-      buildAutoSuggest(DATA);
-      return DATA;
-    } catch (e) {
-      // fall back till default
-      console.warn("Kunde inte läsa localStorage dataset:", e);
-    }
-  }
-
-  // 2) Annars default från data.json
-  DATA = await loadDefaultData();
-  buildAutoSuggest(DATA);
-  return DATA;
-}
-
 async function searchRoute() {
-  const data = await getData();
+  const data = await getActiveData();
 
   const startInput = document.getElementById("start").value;
   const endInput = document.getElementById("slut").value;
@@ -178,18 +206,15 @@ async function searchRoute() {
   const end = parseDriftplats(endInput, dps);
 
   if (!start || !end) {
-    document.getElementById("output").innerHTML =
-      "Kunde inte hitta start/slut. Välj från listan eller skriv driftplatskod.";
+    setMsg("output", `${bad("Kunde inte hitta start/slut.")}<div class="muted">Välj från listan eller skriv driftplatskod.</div>`);
     return;
   }
 
-  // Vi jobbar med "ordnad lista" av driftplatskoder (enkelast möjliga modell)
   const orderedCodes = (data.ordning || []).slice();
   const idx = getIndexMap(orderedCodes);
 
   if (!idx.has(start.code) || !idx.has(end.code)) {
-    document.getElementById("output").innerHTML =
-      "Start/slut finns inte i den inlagda driftplatsordningen. Öppna 'Redigera data' och kontrollera att båda finns med.";
+    setMsg("output", `${bad("Start/slut finns inte i driftplatsordningen.")}<div class="muted">Öppna Admin och kontrollera att båda finns med.</div>`);
     return;
   }
 
@@ -208,20 +233,13 @@ async function searchRoute() {
   });
 }
 
-// ===== Admin UI =====
-
-function toggleAdmin() {
-  const el = document.getElementById("admin");
-  if (!el) return;
-  if (el.style.display === "block") hideAdmin();
-  else showAdmin();
-}
-
+// ---------- Admin UI + Safety ----------
 function showAdmin() {
   const el = document.getElementById("admin");
   if (!el) return;
   el.style.display = "block";
   hydrateAdminFromData();
+  hidePreview();
   setMsg("adminMsg", "");
 }
 
@@ -229,7 +247,20 @@ function hideAdmin() {
   const el = document.getElementById("admin");
   if (!el) return;
   el.style.display = "none";
+  hidePreview();
   setMsg("adminMsg", "");
+}
+
+function hidePreview() {
+  const box = document.getElementById("previewBox");
+  if (box) box.style.display = "none";
+}
+
+function showPreview(html) {
+  const box = document.getElementById("previewBox");
+  const content = document.getElementById("previewContent");
+  if (content) content.innerHTML = html;
+  if (box) box.style.display = "block";
 }
 
 function parseDpLines(text) {
@@ -240,9 +271,11 @@ function parseDpLines(text) {
   for (const line of lines) {
     const parts = line.split(";");
     if (parts.length < 2) continue;
+
     const code = parts[0].trim();
     const name = parts.slice(1).join(";").trim();
     if (!code || !name) continue;
+
     driftplatser.push({ code, name });
     ordning.push(code);
   }
@@ -273,8 +306,54 @@ function parseHsLines(text) {
   return hastighetsStrackor;
 }
 
+function validateDataset(dataset) {
+  const issues = [];
+
+  if (!dataset.linjebok?.id || !dataset.linjebok?.name) {
+    issues.push("Linjebok ID och namn måste vara ifyllda.");
+  }
+
+  if (!Array.isArray(dataset.driftplatser) || dataset.driftplatser.length < 2) {
+    issues.push("Du behöver minst 2 driftplatser.");
+  }
+
+  if (!Array.isArray(dataset.ordning) || dataset.ordning.length < 2) {
+    issues.push("Driftplatsordningen saknas eller är för kort.");
+  }
+
+  // Dubletter i ordning
+  const seen = new Set();
+  const dups = [];
+  for (const c of (dataset.ordning || [])) {
+    if (seen.has(c)) dups.push(c);
+    seen.add(c);
+  }
+  if (dups.length) issues.push(`Dubletter i driftplatsordningen: ${[...new Set(dups)].join(", ")}`);
+
+  // driftplatser: kodunik
+  const codes = dataset.driftplatser.map(d => d.code);
+  const codeSeen = new Set();
+  const codeDups = [];
+  for (const c of codes) {
+    if (codeSeen.has(c)) codeDups.push(c);
+    codeSeen.add(c);
+  }
+  if (codeDups.length) issues.push(`Dubletter i driftplatslistan: ${[...new Set(codeDups)].join(", ")}`);
+
+  // HS-koder finns i ordning
+  const ordSet = new Set(dataset.ordning || []);
+  const hsBad = (dataset.hastighetsStrackor || []).filter(h => !ordSet.has(h.start) || !ordSet.has(h.end));
+  if (hsBad.length) issues.push("Några hastighetssträckor använder koder som inte finns i driftplatsordningen.");
+
+  // HS intervall rimliga (start!=end)
+  const hsWeird = (dataset.hastighetsStrackor || []).filter(h => h.start === h.end);
+  if (hsWeird.length) issues.push("Några hastighetssträckor har samma START och SLUT.");
+
+  return issues;
+}
+
 async function hydrateAdminFromData() {
-  const data = await getData();
+  const data = await getActiveData();
 
   document.getElementById("lbId").value = data.linjebok?.id || "";
   document.getElementById("lbName").value = data.linjebok?.name || "";
@@ -287,60 +366,145 @@ async function hydrateAdminFromData() {
   // hastighetssträckor
   const hsLines = (data.hastighetsStrackor || []).map(h => `${h.name}|${h.start}|${h.end}`).join("\n");
   document.getElementById("hsText").value = hsLines;
+
+  setMsg("adminMsg", "");
 }
 
-async function saveAdmin() {
+async function requestAdmin() {
+  const def = await loadDefaultData();
+  const pinExpected = (def.adminPin || "").toString().trim();
+
+  const pin = prompt("Adminkod:");
+  if (!pin) return;
+
+  if (pinExpected && pin.trim() !== pinExpected) {
+    alert("Fel kod.");
+    return;
+  }
+
+  showAdmin();
+}
+
+function buildDatasetFromAdminFields() {
   const lbId = document.getElementById("lbId").value.trim();
   const lbName = document.getElementById("lbName").value.trim();
   const dpText = document.getElementById("dpText").value;
   const hsText = document.getElementById("hsText").value;
 
-  if (!lbId || !lbName) {
-    setMsg("adminMsg", "Fyll i linjebok ID och namn.");
-    return;
-  }
-
   const { driftplatser, ordning } = parseDpLines(dpText);
-  if (driftplatser.length < 2) {
-    setMsg("adminMsg", "Du behöver minst 2 driftplatser i ordning (KOD;Namn).");
-    return;
-  }
-
   const hastighetsStrackor = parseHsLines(hsText);
 
-  // validera att HS-koder finns i ordningen
-  const ordSet = new Set(ordning);
-  const bad = hastighetsStrackor.filter(h => !ordSet.has(h.start) || !ordSet.has(h.end));
-  if (bad.length) {
-    setMsg("adminMsg", "Några sträckor använder koder som inte finns i driftplatslistan. Kontrollera START/SLUT-koder.");
-    return;
-  }
-
-  const dataset = {
+  return {
+    // adminPin ligger bara i default data.json (inte i localStorage)
     linjebok: { id: lbId, name: lbName },
     driftplatser,
     ordning,
     hastighetsStrackor
   };
+}
 
-  localStorage.setItem(LS_KEY, JSON.stringify(dataset));
-  DATA = dataset;
+function previewAdmin() {
+  const dataset = buildDatasetFromAdminFields();
+  const issues = validateDataset(dataset);
 
-  buildAutoSuggest(DATA);
-  setMsg("adminMsg", "Sparat! Du kan stänga och söka direkt.");
+  const dpCount = dataset.driftplatser?.length || 0;
+  const hsCount = dataset.hastighetsStrackor?.length || 0;
 
-  // uppdatera output så man ser att allt funkar
-  document.getElementById("output").innerHTML = "Sparat. Gör en sökning ovan för att testa.";
+  const head = `
+    <div>${issues.length ? warn("Det finns varningar innan du sparar.") : ok("Ser bra ut.")}</div>
+    <div class="muted" style="margin-top:6px;">
+      Driftplatser: <strong>${dpCount}</strong><br>
+      Sträckor (hastighets-PDF): <strong>${hsCount}</strong>
+    </div>
+  `;
+
+  const issueHtml = issues.length
+    ? `<div style="margin-top:8px;">${issues.map(i => `<div>• ${escapeHtml(i)}</div>`).join("")}</div>`
+    : "";
+
+  // Visa första 10 DP + första 10 sträckor som snabb sanity check
+  const dpPreview = (dataset.driftplatser || []).slice(0, 10)
+    .map(d => `${escapeHtml(d.code)} – ${escapeHtml(d.name)}`).join("<br>");
+
+  const hsPreview = (dataset.hastighetsStrackor || []).slice(0, 10)
+    .map(h => `${escapeHtml(h.name)} (${escapeHtml(h.start)}→${escapeHtml(h.end)})`).join("<br>");
+
+  const body = `
+    ${head}
+    ${issueHtml}
+    <div class="divider"></div>
+    <div><strong>Första driftplatserna</strong></div>
+    <div class="muted" style="margin-top:6px;">${dpPreview || "—"}</div>
+    <div class="divider"></div>
+    <div><strong>Första sträckorna</strong></div>
+    <div class="muted" style="margin-top:6px;">${hsPreview || "—"}</div>
+  `;
+
+  showPreview(body);
+
+  // Om det finns hårda fel? Vi stoppar inte spar, men varnar tydligt.
+  setMsg("adminMsg", issues.length ? warn("Förhandsgranskning visar varningar. Du kan ändå spara, men dubbelkolla.") : ok("Förhandsgranskning OK."));
+}
+
+async function saveAdmin() {
+  const dataset = buildDatasetFromAdminFields();
+  const issues = validateDataset(dataset);
+
+  // Spara backup av nuvarande local (om finns), annars av default
+  const currentLocal = loadLocalData();
+  if (currentLocal) saveBackup(currentLocal);
+  else saveBackup(await loadDefaultData());
+
+  // Spara ny local
+  saveLocalData(dataset);
+  ACTIVE_DATA = dataset;
+  buildAutoSuggest(ACTIVE_DATA);
+
+  if (issues.length) {
+    setMsg("adminMsg", warn("Sparat, men med varningar. Förhandsgranska och rätta om något blev fel."));
+  } else {
+    setMsg("adminMsg", ok("Sparat! Du kan stänga och söka direkt."));
+  }
+
+  setMsg("output", ok("Dataset sparat lokalt. Gör en sökning ovan för att testa."));
+}
+
+async function undoLastSave() {
+  const backup = loadBackup();
+  if (!backup) {
+    setMsg("output", warn("Ingen backup hittades att ångra till."));
+    return;
+  }
+
+  // Lägg nuvarande local som ny backup (så man kan ångra ångra)
+  const currentLocal = loadLocalData();
+  if (currentLocal) saveBackup(currentLocal);
+
+  saveLocalData(backup);
+  ACTIVE_DATA = backup;
+  buildAutoSuggest(ACTIVE_DATA);
+  setMsg("output", ok("Ångrat till föregående dataset (lokalt). Testa en sökning."));
 }
 
 async function resetToDefault() {
   localStorage.removeItem(LS_KEY);
-  DATA = await loadDefaultData();
-  buildAutoSuggest(DATA);
+  // behåll backup (så du kan ångra reset om du vill)
+  ACTIVE_DATA = await loadDefaultData();
+  buildAutoSuggest(ACTIVE_DATA);
   hideAdmin();
-  document.getElementById("output").innerHTML = "Återställt till standarddata. Testa en sökning.";
+  setMsg("output", ok("Återställt till standarddata (från data.json)."));
 }
 
+// Exponera funktioner till HTML
+window.searchRoute = searchRoute;
+window.requestAdmin = requestAdmin;
+window.hideAdmin = hideAdmin;
+window.previewAdmin = previewAdmin;
+window.saveAdmin = saveAdmin;
+window.undoLastSave = undoLastSave;
+window.resetToDefault = resetToDefault;
+
 // Init
-getData();
+getActiveData();
+
 
