@@ -1,4 +1,6 @@
 {
+  "korridorer": [
+    {
       "id": "MAL_arlov_till_malmo_gbg",
       "linjebokId": "MAL",
       "name": "arlöv_till_malmö_gbg",
