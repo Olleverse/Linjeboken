@@ -1,0 +1,12 @@
+{
+  "linjebocker": [
+    { "id": "MAL", "name": "Malmö", "url": "https://bransch.trafikverket.se/for-dig-i-branschen/jarnvag/Underlag-till-linjebok/Malmos-linjebok/" },
+    { "id": "GBG", "name": "Göteborg", "url": "https://bransch.trafikverket.se/for-dig-i-branschen/jarnvag/Underlag-till-linjebok/goteborgs-linjebok/" },
+    { "id": "BDN", "name": "Boden", "url": "https://bransch.trafikverket.se/for-dig-i-branschen/jarnvag/Underlag-till-linjebok/bodens-linjebok/" },
+    { "id": "GAV", "name": "Gävle", "url": "https://bransch.trafikverket.se/for-dig-i-branschen/jarnvag/Underlag-till-linjebok/gavle-linjebok/" },
+    { "id": "HAL", "name": "Hallsberg", "url": "https://bransch.trafikverket.se/for-dig-i-branschen/jarnvag/Underlag-till-linjebok/hallsbergs-linjebok/" },
+    { "id": "NRK", "name": "Norrköping", "url": "https://bransch.trafikverket.se/for-dig-i-branschen/jarnvag/Underlag-till-linjebok/norrkopings-linjebok/" },
+    { "id": "STH", "name": "Stockholm", "url": "https://bransch.trafikverket.se/for-dig-i-branschen/jarnvag/Underlag-till-linjebok/stockholms-linjebok/" },
+    { "id": "ANG", "name": "Ånge", "url": "https://bransch.trafikverket.se/for-dig-i-branschen/jarnvag/Underlag-till-linjebok/anges-linjebok/" }
+  ]
+}

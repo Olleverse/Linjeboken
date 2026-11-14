@@ -1,0 +1,102 @@
+{
+  "korridorer": [
+    {
+      "id": "NRK_bjarka_saby_till_vastervik",
+      "linjebokId": "NRK",
+      "name": "bjärka_säby_till_västervik",
+      "linjebeskrivning": { "fram": "Bjärka Säby → Västervik", "bak": "Västervik → Bjärka Säby" },
+      "ordning": ["Bsä",  "Mmg",  "Vsö",  "Bth",  "Åvg",  "Fal",  "Nl",  "Soö",  "Bda",  "Övmb",  "Övm",  "Fad",  "Gal",  "Avk",  "Tjsk",  "Vk"]
+    },
+    {
+      "id": "NRK_fagersta_central_till_kolback",
+      "linjebokId": "NRK",
+      "name": "fagersta_central_till_kolbäck",
+      "linjebeskrivning": { "fran": "Fagersta central", "till": "Kolbäck" },
+      "ordning": ["Fgn",  "Fgc",  "Äbg",  "Vso",  "Brh",  "Rmn",  "Shr",  "Hh",  "Kbä"]
+    },
+    {
+      "id": "NRK_finspang_till_kimstad",
+      "linjebokId": "NRK",
+      "name": "finspång_till_kimstad",
+      "linjebeskrivning": { "fram": "Finspång → Kimstad", "bak": "Kimstad → Finspång" },
+      "ordning": ["Fg",  "Sbl",  "Kms"]
+    },
+    {
+      "id": "NRK_jadersbruk_till_vasteras_norra",
+      "linjebokId": "NRK",
+      "name": "jädersbruk_till_västerås_norra",
+      "linjebeskrivning": { "fran": "Jädersbruk", "till": "Västerås norra" },
+      "ordning": ["Jbk",  "Arb",  "Vsg",  "Kp",  "Morp",  "Kbä",  "Dt",  "Våv",  "Vå",  "Vån"]
+    },
+    {
+      "id": "NRK_jarna_till_aby_sodra",
+      "linjebokId": "NRK",
+      "name": "järna_till_åby_södra",
+      "linjebeskrivning": { "fram": "Järna → Åby södra", "bak": "Åby södra → Järna" },
+      "ordning": ["Jn",  "Hlö",  "Vhd",  "Lre",  "Tba",  "Ssa",  "Nk",  "Ebg",  "Jår",  "Åba",  "Kon",  "Gtå",  "Åbs"]
+    },
+    {
+      "id": "NRK_katrineholms_central_till_gamlarp",
+      "linjebokId": "NRK",
+      "name": "katrineholms_central_till_gamlarp",
+      "linjebeskrivning": { "fran": "Katrineholms central", "till": "Gamlarp" },
+      "ordning": ["K",  "Stö",  "Smt",  "Åbs",  "Nr",  "Fi",  "Kms",  "Nh",  "Gi",  "Lgm",  "Lp",  "Vsd",  "Mt",  "My",  "Lkn",  "Bx",  "Smn",  "Tns",  "Gp",  "Frd",  "Ras",  "Any",  "Fls",  "Vim",  "Gmp"]
+    },
+    {
+      "id": "NRK_kolback_till_rekarne",
+      "linjebokId": "NRK",
+      "name": "kolbäck_till_rekarne",
+      "linjebeskrivning": { "fran": "Kolbäck", "till": "Rekarne" },
+      "ordning": ["Kbä",  "Ssh",  "Ksu",  "Ksus",  "Rke"]
+    },
+    {
+      "id": "NRK_linkopings_central_till_rimforsa",
+      "linjebokId": "NRK",
+      "name": "linköpings_central_till_rimforsa",
+      "linjebeskrivning": { "fram": "Linköpings central → Rimforsa", "bak": "Rimforsa → Linköpings central" },
+      "ordning": ["Lp",  "Tn",  "Hj",  "Suf",  "Bsä",  "Bsp",  "Brk",  "Gäd",  "Oph",  "Rfb",  "Rf"]
+    },
+    {
+      "id": "NRK_nybybruk_till_folkesta",
+      "linjebokId": "NRK",
+      "name": "nybybruk_till_folkesta",
+      "linjebeskrivning": { "fran": "Nybybruk", "till": "Folkesta" },
+      "ordning": ["Nbr",  "Snl",  "Fok"]
+    },
+    {
+      "id": "NRK_snyten_till_angelsberg",
+      "linjebokId": "NRK",
+      "name": "snyten_till_ängelsberg",
+      "linjebeskrivning": { "fran": "Snyten", "till": "Ängelsberg" },
+      "ordning": ["Snt",  "Äbgb",  "Äbg"]
+    },
+    {
+      "id": "NRK_sodertalje_syd_ovre_till_eskilstuna_central",
+      "linjebokId": "NRK",
+      "name": "södertälje_syd_övre_till_eskilstuna_central",
+      "linjebeskrivning": { "fran": "Södertälje syd övre", "till": "Eskilstuna central" },
+      "ordning": ["Söö",  "Alä",  "Nkv",  "Ryb",  "Lg",  "Gru",  "Mby",  "Sgs",  "Häd",  "Bva",  "Kju",  "Et"]
+    },
+    {
+      "id": "NRK_valskog_till_oxelosund",
+      "linjebokId": "NRK",
+      "name": "valskog_till_oxelösund",
+      "linjebeskrivning": { "fran": "Valskog", "till": "Oxelösund" },
+      "ordning": ["Vsg",  "Kör",  "Rke",  "Fok",  "Et",  "Skrp",  "Hål",  "Bgv",  "Hnä",  "Mlö",  "Fsö",  "Fle",  "Sii",  "Vre",  "Nks",  "Oxd"]
+    },
+    {
+      "id": "NRK_vasteras_norra_till_sala",
+      "linjebokId": "NRK",
+      "name": "västerås_norra_till_sala",
+      "linjebeskrivning": { "fran": "Västerås norra", "till": "Sala" },
+      "ordning": ["Vån",  "Tb",  "Rt",  "Sl"]
+    },
+    {
+      "id": "NRK_aby_sodra_till_aby_gods",
+      "linjebokId": "NRK",
+      "name": "åby_södra_till_åby_godsbangård",
+      "linjebeskrivning": { "fram": "Åby södra → Åby godsbangård", "bak": "Åby godsbangård → Åby södra" },
+      "ordning": ["Åbs",  "Åbyg"]
+    }
+  ]
+}

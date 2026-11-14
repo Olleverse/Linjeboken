@@ -1,0 +1,74 @@
+{
+  "korridorer": [
+    {
+      "id": "ANG_birsta_till_fillan",
+      "linjebokId": "ANG",
+      "name": "birsta_till_fillan",
+      "linjebeskrivning": { "fran": "Birsta", "till": "Fillan" },
+      "ordning": ["Bia",  "Fil"]
+    },
+    {
+      "id": "ANG_gimonas_till_sundsvalls_central",
+      "linjebokId": "ANG",
+      "name": "gimonäs_till_sundsvalls_central",
+      "linjebeskrivning": { "fran": "Gimonäs", "till": "Sundsvalls central" },
+      "ordning": ["Gim",  "Sök",  "Noe",  "Hös",  "Höf",  "Änö",  "Non",  "Nog",  "Ruk",  "Sbe",  "Köa",  "Humn",  "Hum",  "Gia",  "Hög",  "Ara",  "Ökn",  "Ök",  "Gån",  "Bja",  "Döe",  "Häb",  "Han",  "Slm",  "Väy",  "Dns",  "Krf",  "Fnö",  "Spk",  "Möl",  "Svj",  "Hsd",  "Hnl",  "Hän",  "Hsy",  "Sårs",  "Sen",  "Slbk",  "Trå",  "Bia",  "Nta",  "Suv",  "Suc"]
+    },
+    {
+      "id": "ANG_hoting_till_forsmo",
+      "linjebokId": "ANG",
+      "name": "hoting_till_forsmo",
+      "linjebeskrivning": { "fran": "Hoting", "till": "Forsmo" },
+      "ordning": ["Hcp",  "Htg",  "Ros",  "Be",  "Tsg",  "Btå",  "Åd",  "Fsm"]
+    },
+    {
+      "id": "ANG_langsele_till_vasteraspby",
+      "linjebokId": "ANG",
+      "name": "långsele_till_västeraspby",
+      "linjebeskrivning": { "fran": "Långsele", "till": "Västeraspby" },
+      "ordning": ["Lsl",  "Stå",  "Lkm",  "Väy"]
+    },
+    {
+      "id": "ANG_mellansel_till_ornskoldsviks_central",
+      "linjebokId": "ANG",
+      "name": "mellansel_till_örnsköldsviks_central",
+      "linjebeskrivning": { "fran": "Mellansel", "till": "Örnsköldsviks central" },
+      "ordning": ["Msl",  "Öal",  "Ök"]
+    },
+    {
+      "id": "ANG_storlien_till_bracke",
+      "linjebokId": "ANG",
+      "name": "storlien_till_bräcke",
+      "linjebeskrivning": { "fran": "Storlien", "till": "Bräcke" },
+      "ordning": ["Str",  "Ens",  "Ånn",  "Du",  "Åre",  "Un",  "Jpn",  "Mi",  "Äfs",  "Ma",  "Tåv",  "Nä",  "Sfn",  "Kroj",  "Krm",  "Hmfs",  "Ösv",  "Ös",  "Ope",  "Bf",  "Pl",  "Gö",  "Stv",  "Bä"]
+    },
+    {
+      "id": "ANG_vannas_till_holmsund",
+      "linjebokId": "ANG",
+      "name": "vännäs_till_holmsund",
+      "linjebeskrivning": { "fran": "Vännäs", "till": "Holmsund" },
+      "ordning": ["Vän",  "Vns",  "Vby",  "Btb",  "Brd",  "Klbn",  "Uågb",  "Uå",  "Uåö",  "Gim",  "Hod"]
+    },
+    {
+      "id": "ANG_vannas_till_ange",
+      "linjebokId": "ANG",
+      "name": "vännäs_till_ånge",
+      "linjebeskrivning": { "fran": "Vännäs", "till": "Ånge" },
+      "ordning": ["Vän",  "Vns",  "Dgm",  "Hsö",  "Hbä",  "Öä",  "Nyå",  "Oxm",  "Brs",  "Nrs",  "Thö",  "Lnv",  "Lmn",  "Bj",  "Bjö",  "Ge",  "Msl",  "Anö",  "Käv",  "Sop",  "Hoå",  "Ap",  "Som",  "Gnå",  "Baö",  "Slj",  "Fsm",  "Öså",  "Lsl",  "Hlm",  "Ga",  "Fgö",  "Bsg",  "Ru",  "Sngå",  "Hå",  "Rob",  "Vnt",  "Kln",  "Övö",  "Gsn",  "Dk",  "Ksg",  "Ny",  "Grö",  "Bön",  "Bä",  "Bsb",  "Dy",  "Mdl",  "Åg",  "Ågy",  "Åggb"]
+    },
+    {
+      "id": "ANG_ange_till_ljusdal",
+      "linjebokId": "ANG",
+      "name": "ånge_till_ljusdal",
+      "linjebeskrivning": { "fran": "Ånge", "till": "Ljusdal" },
+      "ordning": ["Åg",  "Åggb",  "Ågy",  "Osö",  "Ay",  "Öv",  "Jå",  "Msö",  "Ng",  "Rsö",  "Öbn",  "Hnb",  "Hnn",  "Ltr",  "Tl",  "Ls"]
+    },
+    {
+      "id": "ANG_ange_till_sundsvalls_central",
+      "linjebokId": "ANG",
+      "name": "ånge_till_sundsvalls_central",
+      "linjebeskrivning": { "fran": "Ånge", "till": "Sundsvalls central" },
+      "ordning": ["Åg",  "Åggb",  "Ei",  "Cas",  "Jbg",  "Ljv",  "Ljun",  "Ft",  "To",  "Bog",  "Visk",  "Std",  "Nsö",  "Vm",  "Töv",  "Nta",  "Suv",  "Suc"]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "korridorer": [
+    {
+      "id": "HAL_bofors_till_stromtorp",
+      "linjebokId": "HAL",
+      "name": "bofors_till_strömtorp",
+      "linjebeskrivning": { "fran": "Bofors", "till": "Strömtorp" },
+      "ordning": ["Bof",  "Ksac",  "Kasd",  "Srt"]
+    },
+    {
+      "id": "HAL_domnarvet_till_frovi",
+      "linjebokId": "HAL",
+      "name": "domnarvet_till_frövi",
+      "linjebeskrivning": { "fran": "Domnarvet", "till": "Frövi" },
+      "ordning": ["Dmn",  "Blgc",  "Slnä",  "Uly",  "Rmh",  "Gäg",  "La",  "Khy",  "Gg",  "Ggm",  "Stl",  "Kpg",  "Rlå",  "Sr",  "Ld",  "Vdv",  "Fv"]
+    },
+    {
+      "id": "HAL_filipstad_till_daglosen",
+      "linjebokId": "HAL",
+      "name": "filipstad_till_daglösen",
+      "linjebeskrivning": { "fran": "Filipstad", "till": "Daglösen" },
+      "ordning": ["Fid",  "Dgö"]
+    },
+    {
+      "id": "HAL_frovi_till_hallsbergs_rangerbangard",
+      "linjebokId": "HAL",
+      "name": "frövi_till_hallsbergs_rangerbangård",
+      "linjebeskrivning": { "fran": "Frövi", "till": "Hallsbergs rangerbangård" },
+      "ordning": ["Fv",  "Er",  "Hsa",  "Ör",  "Öb",  "Ms",  "Kla",  "Hpbg",  "Hrbg"]
+    },
+    {
+      "id": "HAL_frovi_till_jadersbruk",
+      "linjebokId": "HAL",
+      "name": "frövi_till_jädersbruk",
+      "linjebeskrivning": { "fran": "Frövi", "till": "Jädersbruk" },
+      "ordning": ["Fv",  "Feb",  "Ålg",  "Jbk"]
+    },
+    {
+      "id": "HAL_grangesberg_till_stalldalen",
+      "linjebokId": "HAL",
+      "name": "grängesberg_till_ställdalen",
+      "linjebeskrivning": { "fran": "Grängesberg", "till": "Ställdalen" },
+      "ordning": ["Gg",  "Ggm",  "Stl"]
+    },
+    {
+      "id": "HAL_hallsbergs_personbangard_till_mjolby",
+      "linjebokId": "HAL",
+      "name": "hallsbergs_personbangård_till_mjölby",
+      "linjebeskrivning": { "fran": "Hallsbergs personbangård", "till": "Mjölby" },
+      "ordning": ["Hpbg",  "Hrbg",  "Skms",  "Å",  "Skm",  "Lmo",  "Jho",  "D",  "Öna",  "Mot",  "Fgl",  "Skn",  "My"]
+    },
+    {
+      "id": "HAL_jadersbruk_till_hovsta",
+      "linjebokId": "HAL",
+      "name": "jädersbruk_till_hovsta",
+      "linjebeskrivning": { "fran": "Jädersbruk", "till": "Hovsta" },
+      "ordning": ["Jbk",  "Öa",  "Aä",  "Hsa"]
+    },
+    {
+      "id": "HAL_karlstad_till_skoghall",
+      "linjebokId": "HAL",
+      "name": "karlstad_till_skoghall",
+      "linjebeskrivning": { "fran": "Karlstad", "till": "Skoghall" },
+      "ordning": ["Kö",  "Ksc",  "Skog"]
+    },
+    {
+      "id": "HAL_karlstads_central_till_skoghall",
+      "linjebokId": "HAL",
+      "name": "karlstads_central_till_skoghall",
+      "linjebeskrivning": { "fran": "Karlstads central", "till": "Skoghall" },
+      "ordning": ["Ksc",  "Skog"]
+    },
+    {
+      "id": "HAL_katrineholms_central_till_skovde_central",
+      "linjebokId": "HAL",
+      "name": "katrineholms_central_till_skövde_central",
+      "linjebeskrivning": { "fran": "Katrineholms central", "till": "Skövde central" },
+      "ordning": ["K",  "Bt",  "Vr",  "Hgö",  "Km",  "På",  "Hpbg",  "Hrbg",  "Hpn",  "Täl",  "Öj",  "Vt",  "Lln",  "Lå",  "Väv",  "Fa",  "Gdö",  "Äl",  "Sle",  "T",  "Mh",  "Vä",  "Sk"]
+    },
+    {
+      "id": "HAL_kil_till_torsby",
+      "linjebokId": "HAL",
+      "name": "kil_till_torsby",
+      "linjebeskrivning": { "fran": "Kil", "till": "Torsby" },
+      "ordning": ["Kil",  "Tgs",  "Tlt",  "Frå",  "Bäb",  "Vät",  "Öjr",  "Rts",  "Kns",  "Sun",  "Imr",  "Ebk",  "Ibe",  "Lyv",  "Bdb",  "Ol",  "Stje",  "Toy"]
+    },
+    {
+      "id": "HAL_laxa_till_charlottenberg",
+      "linjebokId": "HAL",
+      "name": "laxå_till_charlottenberg",
+      "linjebeskrivning": { "fran": "Laxå", "till": "Charlottenberg" },
+      "ordning": ["Lå",  "Hs",  "Svå",  "Dg",  "Srt",  "Bjb",  "Khn",  "Öl",  "Ve",  "Srr",  "Kvä",  "Kö",  "Ksc",  "Skr",  "Kud",  "Sån",  "Kil",  "Fgå",  "Len",  "Hbd",  "Buk",  "Bu",  "En",  "Ar",  "Ot",  "Åt",  "Lrt",  "Ås",  "Cg"]
+    },
+    {
+      "id": "HAL_nykroppa_till_kristinehamn",
+      "linjebokId": "HAL",
+      "name": "nykroppa_till_kristinehamn",
+      "linjebeskrivning": { "fran": "Nykroppa", "till": "Kristinehamn" },
+      "ordning": ["Nka",  "Bad",  "Sf",  "Nd",  "Spjb",  "Khn"]
+    },
+    {
+      "id": "HAL_stalldalen_till_kil",
+      "linjebokId": "HAL",
+      "name": "ställdalen_till_kil",
+      "linjebeskrivning": { "fran": "Ställdalen", "till": "Kil" },
+      "ordning": ["Stl",  "Skrt",  "Brö",  "Keb",  "Sif",  "Hlf",  "Ghyn",  "Ghy",  "Loka",  "Hlt",  "Nka",  "Dgö",  "Gdl",  "Sdm",  "Kil"]
+    }
+  ]
+}
