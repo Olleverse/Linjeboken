@@ -26,6 +26,8 @@
     .divider { height: 1px; background: #ddd; margin: 10px 0; }
     .ac { position: relative; }
     .ac input { padding-right: 44px; }
+    #viaList { display: flex; flex-direction: column; gap: 10px; }
+    button.addvia { background: none; color: #2457d6; padding: 2px 0; font-size: .95rem; align-self: flex-start; text-align: left; }
     .clr { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: transparent; font-size: 1.4rem; line-height: 1; padding: 6px 10px; color: #888; }
     .sugg { position: absolute; z-index: 10; left: 0; right: 0; top: 100%; margin: 4px 0 0; padding: 4px 0; list-style: none; background: #fff; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,.12); max-height: 320px; overflow-y: auto; }
     .sugg li { padding: 10px 12px; cursor: pointer; }
@@ -42,7 +44,10 @@
 
   <div class="row">
     <div class="ac"><input id="start" placeholder="Start (t.ex. Sk eller Skövde)" autocomplete="off" autocapitalize="off" spellcheck="false" /><button type="button" class="clr" data-for="start" aria-label="Töm">×</button><ul class="sugg" hidden></ul></div>
-    <div class="ac"><input id="via"   placeholder="Via (valfritt, t.ex. Hb eller Helsingborg)" autocomplete="off" autocapitalize="off" spellcheck="false" /><button type="button" class="clr" data-for="via" aria-label="Töm">×</button><ul class="sugg" hidden></ul></div>
+    <div id="viaList">
+      <div class="ac"><input id="via" class="via-input" placeholder="Via (valfritt, t.ex. Hb eller Helsingborg)" autocomplete="off" autocapitalize="off" spellcheck="false" /><button type="button" class="clr" data-for="via" aria-label="Töm">×</button><ul class="sugg" hidden></ul></div>
+    </div>
+    <button type="button" id="addVia" class="addvia">+ Lägg till via</button>
     <div class="ac"><input id="slut"  placeholder="Slut (t.ex. G eller Göteborg)" autocomplete="off" autocapitalize="off" spellcheck="false" /><button type="button" class="clr" data-for="slut" aria-label="Töm">×</button><ul class="sugg" hidden></ul></div>
 
     <button class="primary" onclick="searchRoute()">Sök</button>
@@ -57,6 +62,6 @@
   </p>
 
   <!-- Höj versionsnumret vid varje uppdatering av app.js, så hämtar alla webbläsare den nya koden. -->
-  <script src="app.js?v=2026-11-14-7"></script>
+  <script src="app.js?v=2026-11-14-8"></script>
 </body>
 </html>

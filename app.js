@@ -77,7 +77,7 @@
     // början av namn: "Göteborg" -> "Göteborgs central", "Malmö" -> "Malmö C"
     const starts = dpList.filter((dp) => !dp.saknarNamn && (dp.name || "").toLowerCase().startsWith(lower));
     if (starts.length === 1) return starts[0].code;
-    const centrals = starts.filter((dp) => /(central|\sC)$/i.test(dp.name || ""));
+    const centrals = starts.filter((dp) => /(central|\sC|personbangård)$/i.test(dp.name || ""));
     if (centrals.length === 1) return centrals[0].code;
     return "";
   }
@@ -171,13 +171,12 @@
       else if (code.startsWith(lower)) codePrefix.push(dp);
       else if (lower.length >= 3 && name.split(/[\s-]+/).some((w) => w.startsWith(lower))) wordPrefix.push(dp);
     }
-    const isMain = (dp) => /(central|\sC)$/i.test(dp.name || "");
+    const isMain = (dp) => /(central|\sC|personbangård)$/i.test(dp.name || "");
     namePrefix.sort((x, y) => (isMain(y) - isMain(x)) || x.name.localeCompare(y.name, "sv"));
     return exactCode.concat(namePrefix, codePrefix, wordPrefix).slice(0, 30);
   }
 
-  function setupAutocomplete(id) {
-    const input = $(id);
+  function setupAutocomplete(input) {
     if (!input) return;
     const list = input.parentElement.querySelector(".sugg");
     let items = [];
@@ -199,7 +198,7 @@
       input.value = formatDp(dp.code);
       hide();
       // hoppa vidare till nästa tomma fält
-      const next = ["start", "via", "slut"].map($).find((el) => el && el !== input && !el.value && el.id !== "via");
+      const next = ["start", "slut"].map($).find((el) => el && el !== input && !el.value);
       if (next) next.focus();
     };
 
@@ -220,11 +219,40 @@
     });
 
     const clr = input.parentElement.querySelector(".clr");
-    if (clr) clr.addEventListener("click", () => { input.value = ""; hide(); input.focus(); });
+    if (clr) clr.addEventListener("click", () => {
+      // Extra via-fält tas bort helt, de övriga töms
+      if (input.dataset.extra) { input.parentElement.remove(); updateAddVia(); return; }
+      input.value = ""; hide(); input.focus();
+    });
+  }
+
+  // ---------- Fler via-platser ----------
+  const VIA_MAX = 3;
+  function viaInputs() { return Array.from(document.querySelectorAll(".via-input")); }
+  function updateAddVia() {
+    const btn = $("addVia");
+    if (btn) btn.hidden = viaInputs().length >= VIA_MAX;
+  }
+  function addVia() {
+    const list = $("viaList");
+    if (!list || viaInputs().length >= VIA_MAX) return;
+    const n = viaInputs().length + 1;
+    const wrap = document.createElement("div");
+    wrap.className = "ac";
+    wrap.innerHTML = `<input class="via-input" data-extra="1" placeholder="Via ${n} (valfritt)" autocomplete="off" autocapitalize="off" spellcheck="false" />` +
+      `<button type="button" class="clr" aria-label="Ta bort">×</button><ul class="sugg" hidden></ul>`;
+    list.appendChild(wrap);
+    const input = wrap.querySelector("input");
+    setupAutocomplete(input);
+    updateAddVia();
+    input.focus();
   }
 
   function fillDatalist() {
-    ["start", "via", "slut"].forEach(setupAutocomplete);
+    [$("start"), $("slut"), ...viaInputs()].forEach(setupAutocomplete);
+    const btn = $("addVia");
+    if (btn) btn.addEventListener("click", addVia);
+    updateAddVia();
   }
 
   // ---------- Pathfinding ----------
@@ -316,13 +344,13 @@
   function compressSegments(path) {
     const nodes = path.nodes;
     const corrs = path.corridors;
-    const breakAt = path.viaIndex ?? -1; // börja alltid ett nytt avsnitt vid via-platsen
+    const breaks = new Set(path.viaIndexes || []); // börja alltid ett nytt avsnitt vid en via-plats
     const segments = [];
     let i = 0;
     while (i < corrs.length) {
       const corridorId = corrs[i];
       let j = i;
-      while (j < corrs.length && corrs[j] === corridorId && (j === i || j !== breakAt)) j++;
+      while (j < corrs.length && corrs[j] === corridorId && (j === i || !breaks.has(j))) j++;
       segments.push({ corridorId, from: nodes[i], to: nodes[j], startIndex: i, endIndex: j });
       i = j;
     }
@@ -336,7 +364,7 @@
     out.innerHTML = `<div class="bad">Fel:</div><div>${esc(msg)}</div>`;
   }
 
-  function renderResult(fromCode, toCode, path, viaCode) {
+  function renderResult(fromCode, toCode, path, viaCodes = []) {
     const out = $("output");
     if (!out) return;
 
@@ -372,7 +400,7 @@
       : `Sträckan är uppdelad på <strong>${books.length} linjeböcker</strong>: ${books.map(esc).join(" → ")}.`;
 
     out.innerHTML = `
-      <div><strong>Resultat:</strong> ${esc(formatDp(fromCode))} → ${viaCode ? esc(formatDp(viaCode)) + " → " : ""}${esc(formatDp(toCode))}</div>
+      <div><strong>Resultat:</strong> ${[fromCode, ...viaCodes, toCode].map((c) => esc(formatDp(c))).join(" → ")}</div>
       <div style="margin-top:6px;">${bookText}</div>
       <div style="margin-top:10px;">
         ${segments.map((s, i) => `
@@ -399,34 +427,45 @@
 
       const fromRaw = $("start")?.value || "";
       const toRaw = $("slut")?.value || "";
-
-      const viaRaw = $("via")?.value || "";
-
       const fromCode = normalizeToCode(fromRaw);
       const toCode = normalizeToCode(toRaw);
-      const viaCode = viaRaw.trim() ? normalizeToCode(viaRaw) : "";
 
       if (!fromCode) return renderError("Start kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
       if (!toCode) return renderError("Slut kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
-      if (viaRaw.trim() && !viaCode) return renderError("Via kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
-      if (fromCode === toCode) return renderError("Start och slut är samma. Välj två olika trafikplatser.");
 
-      let path;
-      if (viaCode && viaCode !== fromCode && viaCode !== toCode) {
-        const p1 = findRoute(fromCode, viaCode);
-        const p2 = findRoute(viaCode, toCode);
-        if (!p1 || !p2) return renderError("Hittar ingen väg via " + formatDp(viaCode) + ".");
-        path = {
-          nodes: p1.nodes.concat(p2.nodes.slice(1)),
-          corridors: p1.corridors.concat(p2.corridors),
-          viaIndex: p1.nodes.length - 1
-        };
-      } else {
-        path = findRoute(fromCode, toCode);
+      // Via-platser i den ordning de står (tomma fält hoppas över)
+      const viaCodes = [];
+      const vias = viaInputs();
+      for (let i = 0; i < vias.length; i++) {
+        const raw = vias[i].value.trim();
+        if (!raw) continue;
+        const code = normalizeToCode(raw);
+        const label = vias.length > 1 ? `Via ${i + 1}` : "Via";
+        if (!code) return renderError(`${label} kunde inte tolkas. Välj från listan eller skriv en giltig kod.`);
+        viaCodes.push(code);
       }
-      if (!path) return renderError("Hittar ingen väg i din data mellan dessa trafikplatser. (Saknas korridorer som kopplar ihop?)");
 
-      renderResult(fromCode, toCode, path, viaCode);
+      // Hela kedjan av punkter som vägen ska gå genom
+      const points = [fromCode];
+      for (const c of [...viaCodes, toCode]) {
+        if (c !== points[points.length - 1]) points.push(c);
+      }
+      if (points.length < 2) return renderError("Start och slut är samma. Välj två olika trafikplatser.");
+
+      const path = { nodes: [points[0]], corridors: [], viaIndexes: [] };
+      for (let i = 0; i < points.length - 1; i++) {
+        const leg = findRoute(points[i], points[i + 1]);
+        if (!leg) {
+          return renderError(points.length > 2
+            ? `Hittar ingen väg mellan ${formatDp(points[i])} och ${formatDp(points[i + 1])}.`
+            : "Hittar ingen väg i din data mellan dessa trafikplatser. (Saknas korridorer som kopplar ihop?)");
+        }
+        if (i > 0) path.viaIndexes.push(path.nodes.length - 1);
+        path.nodes.push(...leg.nodes.slice(1));
+        path.corridors.push(...leg.corridors);
+      }
+
+      renderResult(fromCode, toCode, path, points.slice(1, -1));
     } catch (e) {
       renderError(String(e?.message || e));
     }
@@ -434,7 +473,7 @@
 
   // Enter i fälten startar sökningen
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && ["start", "via", "slut"].includes(e.target?.id)) window.searchRoute();
+    if (e.key === "Enter" && e.target?.closest?.(".ac")) window.searchRoute();
   });
 
   // ---------- Init ----------
