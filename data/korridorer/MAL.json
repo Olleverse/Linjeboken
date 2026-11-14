@@ -167,6 +167,13 @@
       "name": "åstorp_till_kattarp",
       "linjebeskrivning": { "fram": "Åstorp → Kattarp", "bak": "Kattarp → Åstorp" },
       "ordning": ["Åp",  "Aal",  "Hlp",  "Ka"]
+    },
+    {
+      "id": "MAL_ostervarn_till_simrishamn_via_hyllie",
+      "linjebokId": "MAL",
+      "name": "östervärn_till_simrishamn_via_hyllie",
+      "linjebeskrivning": { "fram": "Östervärn → Simrishamn via Hyllie", "bak": "Simrishamn → Östervärn via Hyllie" },
+      "ordning": ["Övn",  "Mc",  "Tri",  "Hie",  "Stp",  "Lrp",  "Saö",  "Sea",  "Lmm",  "Srp",  "Rdg",  "Rye",  "Vlb",  "Y",  "Tli",  "Gss",  "Si"]
     }
   ]
 }
