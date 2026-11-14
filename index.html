@@ -34,11 +34,12 @@
 
   <h1>Linjebok + sträcka i hastighets-PDF</h1>
   <div class="muted">
-    Skriv start/slut (kod eller namn). Appen visar vilken linjebok och vilka tabell-sträckor du ska slå upp i hastighets-PDF:en.
+    Skriv start och slut (kod eller namn). Fyll i Via om tåget ska gå en annan väg än den appen föreslår. Appen visar vilken linjebok och vilka tabell-sträckor du ska slå upp i hastighets-PDF:en.
   </div>
 
   <div class="row">
     <input id="start" list="dpList" placeholder="Start (t.ex. Sk eller Skövde)" autocomplete="off" />
+    <input id="via"   list="dpList" placeholder="Via (valfritt, t.ex. Hb eller Helsingborg)" autocomplete="off" />
     <input id="slut"  list="dpList" placeholder="Slut (t.ex. G eller Göteborg)" autocomplete="off" />
     <datalist id="dpList"></datalist>
 

@@ -13,7 +13,7 @@
 
   // Straff för att byta korridor / linjebok längs vägen (räknat i "antal driftplatser").
   // Höj om resultatet hoppar mellan korridorer i onödan, sänk om det tar för stora omvägar.
-  const BYTE_KORRIDOR = 8;
+  const BYTE_KORRIDOR = 15;
   const BYTE_LINJEBOK = 4; // läggs ovanpå BYTE_KORRIDOR
 
   let DATA = null;
@@ -68,6 +68,12 @@
     for (const dp of dpList) {
       if ((dp.name || "").toLowerCase() === lower) return dp.code;
     }
+
+    // början av namn: "Göteborg" -> "Göteborgs central", "Malmö" -> "Malmö C"
+    const starts = dpList.filter((dp) => !dp.saknarNamn && (dp.name || "").toLowerCase().startsWith(lower));
+    if (starts.length === 1) return starts[0].code;
+    const centrals = starts.filter((dp) => /(central|\sC)$/i.test(dp.name || ""));
+    if (centrals.length === 1) return centrals[0].code;
     return "";
   }
 
@@ -262,7 +268,7 @@
     out.innerHTML = `<div class="bad">Fel:</div><div>${esc(msg)}</div>`;
   }
 
-  function renderResult(fromCode, toCode, path) {
+  function renderResult(fromCode, toCode, path, viaCode) {
     const out = $("output");
     if (!out) return;
 
@@ -286,7 +292,7 @@
       : `Sträckan är uppdelad på <strong>${books.length} linjeböcker</strong>: ${books.map(esc).join(" → ")}.`;
 
     out.innerHTML = `
-      <div><strong>Resultat:</strong> ${esc(formatDp(fromCode))} → ${esc(formatDp(toCode))}</div>
+      <div><strong>Resultat:</strong> ${esc(formatDp(fromCode))} → ${viaCode ? esc(formatDp(viaCode)) + " → " : ""}${esc(formatDp(toCode))}</div>
       <div style="margin-top:6px;">${bookText}</div>
       <div style="margin-top:10px;">
         ${segments.map((s, i) => `
@@ -321,17 +327,32 @@
       const fromRaw = $("start")?.value || "";
       const toRaw = $("slut")?.value || "";
 
+      const viaRaw = $("via")?.value || "";
+
       const fromCode = normalizeToCode(fromRaw);
       const toCode = normalizeToCode(toRaw);
+      const viaCode = viaRaw.trim() ? normalizeToCode(viaRaw) : "";
 
       if (!fromCode) return renderError("Start driftplats kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
       if (!toCode) return renderError("Slut driftplats kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
+      if (viaRaw.trim() && !viaCode) return renderError("Via driftplats kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
       if (fromCode === toCode) return renderError("Start och slut är samma. Välj två olika driftplatser.");
 
-      const path = findRoute(fromCode, toCode);
+      let path;
+      if (viaCode && viaCode !== fromCode && viaCode !== toCode) {
+        const p1 = findRoute(fromCode, viaCode);
+        const p2 = findRoute(viaCode, toCode);
+        if (!p1 || !p2) return renderError("Hittar ingen väg via " + formatDp(viaCode) + ".");
+        path = {
+          nodes: p1.nodes.concat(p2.nodes.slice(1)),
+          corridors: p1.corridors.concat(p2.corridors)
+        };
+      } else {
+        path = findRoute(fromCode, toCode);
+      }
       if (!path) return renderError("Hittar ingen väg i din data mellan dessa driftplatser. (Saknas korridorer som kopplar ihop?)");
 
-      renderResult(fromCode, toCode, path);
+      renderResult(fromCode, toCode, path, viaCode);
     } catch (e) {
       renderError(String(e?.message || e));
     }
@@ -353,7 +374,7 @@
 
   // Enter i fälten startar sökningen
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && (e.target?.id === "start" || e.target?.id === "slut")) window.searchRoute();
+    if (e.key === "Enter" && ["start", "via", "slut"].includes(e.target?.id)) window.searchRoute();
   });
 
   // ---------- Init ----------
