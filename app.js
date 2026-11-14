@@ -15,6 +15,11 @@
   // Höj om resultatet hoppar mellan korridorer i onödan, sänk om det tar för stora omvägar.
   const BYTE_KORRIDOR = 15;
   const BYTE_LINJEBOK = 4; // läggs ovanpå BYTE_KORRIDOR
+  // Korta förbindelser mellan två banor (t.ex. Snyten–Ängelsberg, Karlberg–Stockholms norra)
+  // markeras med "forbindelse": true i korridorfilen. Att åka via en förbindelse räknas
+  // som ett byte, men lite billigare än ett vanligt byte, så att appen tar genvägen i
+  // stället för en omväg via nästa station.
+  const FORBINDELSE_RABATT = 1;
 
   let DATA = null;
   let dpByCode = new Map();
@@ -271,11 +276,16 @@
 
       for (const e of adj.get(node) || []) {
         let step = 1;
-        if (corr && e.corridorId !== corr) {
-          step += BYTE_KORRIDOR;
-          const lbA = corridorById.get(corr)?.linjebokId;
-          const lbB = corridorById.get(e.corridorId)?.linjebokId;
-          if (lbA !== lbB) step += BYTE_LINJEBOK;
+        const into = corridorById.get(e.corridorId);
+        if (!corr) {
+          // Vägen börjar på en förbindelse: räknas som ett byte
+          if (into?.forbindelse) step += BYTE_KORRIDOR - FORBINDELSE_RABATT;
+        } else if (e.corridorId !== corr) {
+          const from = corridorById.get(corr);
+          if (from?.linjebokId !== into?.linjebokId) step += BYTE_LINJEBOK;
+          if (into?.forbindelse) step += BYTE_KORRIDOR - FORBINDELSE_RABATT; // in på förbindelse
+          else if (!from?.forbindelse) step += BYTE_KORRIDOR;                 // vanligt byte
+          // ut från en förbindelse: redan betalt när man gick in
         }
         const nk = key(e.to, e.corridorId);
         const nc = cost + step;
@@ -373,7 +383,7 @@
             <div style="font-size:1.1rem;"><strong>${esc(s.title)}</strong></div>
             <div class="muted">Du kör ${esc(formatDp(s.from))} → ${esc(formatDp(s.to))}</div>
             <details style="margin-top:4px;">
-              <summary style="cursor:pointer;">Driftplatser som passeras (${s.nodes.length} st)</summary>
+              <summary style="cursor:pointer;">Trafikplatser som passeras (${s.nodes.length} st)</summary>
               <div class="muted" style="margin-top:6px; line-height:1.6;">${s.nodes.map((c) => esc(formatDp(c))).join(" → ")}</div>
             </details>
           </div>
@@ -396,10 +406,10 @@
       const toCode = normalizeToCode(toRaw);
       const viaCode = viaRaw.trim() ? normalizeToCode(viaRaw) : "";
 
-      if (!fromCode) return renderError("Start driftplats kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
-      if (!toCode) return renderError("Slut driftplats kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
-      if (viaRaw.trim() && !viaCode) return renderError("Via driftplats kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
-      if (fromCode === toCode) return renderError("Start och slut är samma. Välj två olika driftplatser.");
+      if (!fromCode) return renderError("Start kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
+      if (!toCode) return renderError("Slut kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
+      if (viaRaw.trim() && !viaCode) return renderError("Via kunde inte tolkas. Välj från listan eller skriv en giltig kod.");
+      if (fromCode === toCode) return renderError("Start och slut är samma. Välj två olika trafikplatser.");
 
       let path;
       if (viaCode && viaCode !== fromCode && viaCode !== toCode) {
@@ -414,7 +424,7 @@
       } else {
         path = findRoute(fromCode, toCode);
       }
-      if (!path) return renderError("Hittar ingen väg i din data mellan dessa driftplatser. (Saknas korridorer som kopplar ihop?)");
+      if (!path) return renderError("Hittar ingen väg i din data mellan dessa trafikplatser. (Saknas korridorer som kopplar ihop?)");
 
       renderResult(fromCode, toCode, path, viaCode);
     } catch (e) {
@@ -456,7 +466,7 @@
       buildIndexes({ linjebocker, driftplatser: dpFile.driftplatser, korridorer });
       fillDatalist();
 
-      if (out) out.innerHTML = `<span class="ok">Redo.</span> (${dpList.length} driftplatser, ${(DATA.korridorer || []).length} korridorer)`;
+      if (out) out.innerHTML = `<span class="ok">Redo.</span> (${dpList.length} trafikplatser, ${(DATA.korridorer || []).length} korridorer)`;
     } catch (e) {
       renderError(String(e?.message || e));
     }
