@@ -88,6 +88,9 @@
   // Rubrik på linjebeskrivningen i den riktning man kör, t.ex. "Göteborg C → Skövde C"
   function linjebeskrivningTitle(corridor, direction) {
     const lb = corridor?.linjebeskrivning;
+    // Exakt rubrik enligt Trafikverkets innehållsförteckning, om den finns
+    if (direction === "bak" && lb?.bak) return lb.bak;
+    if (direction !== "bak" && lb?.fram) return lb.fram;
     let fran = lb?.fran, till = lb?.till;
     if (!fran || !till) {
       const ord = corridor?.ordning || [];
@@ -347,6 +350,7 @@
     segments.forEach((s) => {
       const lb = s.corridor ? lbById.get(s.corridor.linjebokId) : null;
       s.linjebokName = lb?.name || s.corridor?.linjebokId || "(okänd linjebok)";
+      s.linjebokUrl = lb?.url || "";
       s.title = s.corridor ? linjebeskrivningTitle(s.corridor, s.direction) : s.corridorId;
       s.from = s.nodes[0];
       s.to = s.nodes[s.nodes.length - 1];
@@ -363,7 +367,9 @@
       <div style="margin-top:10px;">
         ${segments.map((s, i) => `
           <div class="line">
-            <div class="muted">${i + 1}. Linjebok ${esc(s.linjebokName)}</div>
+            <div class="muted">${i + 1}. ${s.linjebokUrl
+              ? `<a href="${esc(s.linjebokUrl)}" target="_blank" rel="noopener">Linjebok ${esc(s.linjebokName)} ↗</a>`
+              : `Linjebok ${esc(s.linjebokName)}`}</div>
             <div style="font-size:1.1rem;"><strong>${esc(s.title)}</strong></div>
             <div class="muted">Du kör ${esc(formatDp(s.from))} → ${esc(formatDp(s.to))}</div>
             <details style="margin-top:4px;">
