@@ -1,5 +1,4 @@
 {
-  "adminPin": "6431",
   "linjebocker": [
     { "id": "MAL", "name": "Malmö" },
     { "id": "GBG", "name": "Göteborg" },
