@@ -85,27 +85,17 @@
     return i2 > i1 ? "fram" : "bak";
   }
 
-  // Vilka tabellsträckor (i hastighets-PDF:en) berör den här delen av korridoren?
-  function tabellStrackorFor(corridor, fromCode, toCode) {
-    const ord = corridor?.ordning || [];
-    const a = ord.indexOf(fromCode), b = ord.indexOf(toCode);
-    if (a === -1 || b === -1) return [];
-    const lo = Math.min(a, b), hi = Math.max(a, b);
-    const hits = [];
-    for (const t of corridor.tabellStrackor || []) {
-      const s = ord.indexOf(t.start), e = ord.indexOf(t.end);
-      if (s === -1 || e === -1) continue; // sträckan ligger utanför korridorens ordning
-      const tlo = Math.min(s, e), thi = Math.max(s, e);
-      if (Math.max(lo, tlo) < Math.min(hi, thi)) hits.push(t);
+  // Rubrik på linjebeskrivningen i den riktning man kör, t.ex. "Göteborg C → Skövde C"
+  function linjebeskrivningTitle(corridor, direction) {
+    const lb = corridor?.linjebeskrivning;
+    let fran = lb?.fran, till = lb?.till;
+    if (!fran || !till) {
+      const ord = corridor?.ordning || [];
+      fran = dpByCode.get(ord[0])?.name || ord[0];
+      till = dpByCode.get(ord[ord.length - 1])?.name || ord[ord.length - 1];
     }
-    // visa i körordning
-    const forward = b >= a;
-    hits.sort((x, y) => {
-      const ix = Math.min(ord.indexOf(x.start), ord.indexOf(x.end));
-      const iy = Math.min(ord.indexOf(y.start), ord.indexOf(y.end));
-      return forward ? ix - iy : iy - ix;
-    });
-    return hits;
+    const [a, b] = direction === "bak" ? [till, fran] : [fran, till];
+    return `${a} → ${b}` + (lb?.via ? ` via ${lb.via}` : "");
   }
 
   // ---------- Index builders ----------
@@ -320,7 +310,7 @@
       const corridorId = corrs[i];
       let j = i;
       while (j < corrs.length && corrs[j] === corridorId && (j === i || j !== breakAt)) j++;
-      segments.push({ corridorId, from: nodes[i], to: nodes[j] });
+      segments.push({ corridorId, from: nodes[i], to: nodes[j], startIndex: i, endIndex: j });
       i = j;
     }
     return segments;
@@ -337,18 +327,29 @@
     const out = $("output");
     if (!out) return;
 
-    const segments = compressSegments(path).map((seg) => {
+    const raw = compressSegments(path).map((seg) => {
       const corridor = corridorById.get(seg.corridorId);
-      const lb = corridor ? lbById.get(corridor.linjebokId) : null;
       return {
-        linjebokId: corridor?.linjebokId || "",
-        linjebokName: lb?.name || corridor?.linjebokId || "(okänd linjebok)",
-        corridorName: corridor?.name || seg.corridorId,
+        corridor,
+        corridorId: seg.corridorId,
         direction: corridor ? corridorDirection(corridor, seg.from, seg.to) : "okänd",
-        tabell: corridor ? tabellStrackorFor(corridor, seg.from, seg.to) : [],
-        from: seg.from,
-        to: seg.to
+        nodes: path.nodes.slice(seg.startIndex, seg.endIndex + 1)
       };
+    });
+    // Slå ihop avsnitt i samma linjebeskrivning och samma riktning (t.ex. på var sin sida om en via-plats)
+    const segments = [];
+    for (const s of raw) {
+      const last = segments[segments.length - 1];
+      if (last && last.corridorId === s.corridorId && last.direction === s.direction) {
+        last.nodes = last.nodes.concat(s.nodes.slice(1));
+      } else segments.push(s);
+    }
+    segments.forEach((s) => {
+      const lb = s.corridor ? lbById.get(s.corridor.linjebokId) : null;
+      s.linjebokName = lb?.name || s.corridor?.linjebokId || "(okänd linjebok)";
+      s.title = s.corridor ? linjebeskrivningTitle(s.corridor, s.direction) : s.corridorId;
+      s.from = s.nodes[0];
+      s.to = s.nodes[s.nodes.length - 1];
     });
 
     const books = [...new Set(segments.map((s) => s.linjebokName))];
@@ -362,25 +363,16 @@
       <div style="margin-top:10px;">
         ${segments.map((s, i) => `
           <div class="line">
-            <div><strong>${i + 1}. Linjebok ${esc(s.linjebokName)}</strong></div>
-            <div>${esc(formatDp(s.from))} → ${esc(formatDp(s.to))}</div>
-            <div class="muted">Korridor: ${esc(s.corridorName)} (${esc(s.direction)})</div>
-            ${s.tabell.length ? `
-              <div class="muted" style="margin-top:4px;">Slå upp i hastighets-PDF:en:
-                <ul style="margin:4px 0 0 18px; padding:0;">
-                  ${s.tabell.map((t) => `<li>${esc(t.name)}</li>`).join("")}
-                </ul>
-              </div>` : ""}
+            <div class="muted">${i + 1}. Linjebok ${esc(s.linjebokName)}</div>
+            <div style="font-size:1.1rem;"><strong>${esc(s.title)}</strong></div>
+            <div class="muted">Du kör ${esc(formatDp(s.from))} → ${esc(formatDp(s.to))}</div>
+            <details style="margin-top:4px;">
+              <summary style="cursor:pointer;">Driftplatser som passeras (${s.nodes.length} st)</summary>
+              <div class="muted" style="margin-top:6px; line-height:1.6;">${s.nodes.map((c) => esc(formatDp(c))).join(" → ")}</div>
+            </details>
           </div>
         `).join("")}
       </div>
-
-      <details style="margin-top:12px;">
-        <summary style="cursor:pointer;"><strong>Visa hela kedjan av driftplatser</strong> (${path.nodes.length} st)</summary>
-        <div class="muted" style="margin-top:8px; line-height:1.6;">
-          ${path.nodes.map((c) => esc(formatDp(c))).join(" → ")}
-        </div>
-      </details>
     `;
   }
 
@@ -423,20 +415,6 @@
       renderError(String(e?.message || e));
     }
   };
-
-  // Admin-knapparna i index.html är avstängda i denna version.
-  window.requestAdmin = function () {
-    alert("Admin-läget är avstängt i denna version. Data ligger i mappen data/.");
-  };
-  window.undoLastSave = function () {
-    alert("Ångra är avstängt i denna version. Ändra filerna i mappen data/ på GitHub istället.");
-  };
-  window.resetToDefault = function () {
-    alert("Återställ är avstängt i denna version. Ändra filerna i mappen data/ på GitHub istället.");
-  };
-  window.previewAdmin = function () {};
-  window.saveAdmin = function () {};
-  window.hideAdmin = function () {};
 
   // Enter i fälten startar sökningen
   document.addEventListener("keydown", (e) => {
