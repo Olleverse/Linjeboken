@@ -4,7 +4,7 @@
       "id": "NRK_bjarka_saby_till_vastervik",
       "linjebokId": "NRK",
       "name": "bjärka_säby_till_västervik",
-      "linjebeskrivning": { "fran": "Bjärka Säby", "till": "Västervik" },
+      "linjebeskrivning": { "fram": "Bjärka Säby → Västervik", "bak": "Västervik → Bjärka Säby" },
       "ordning": ["Bsä",  "Mmg",  "Vsö",  "Bth",  "Åvg",  "Fal",  "Nl",  "Soö",  "Bda",  "Övmb",  "Övm",  "Fad",  "Gal",  "Avk",  "Tjsk",  "Vk"]
     },
     {
@@ -18,7 +18,7 @@
       "id": "NRK_finspang_till_kimstad",
       "linjebokId": "NRK",
       "name": "finspång_till_kimstad",
-      "linjebeskrivning": { "fran": "Finspång", "till": "Kimstad" },
+      "linjebeskrivning": { "fram": "Finspång → Kimstad", "bak": "Kimstad → Finspång" },
       "ordning": ["Fg",  "Sbl",  "Kms"]
     },
     {
@@ -32,7 +32,7 @@
       "id": "NRK_jarna_till_aby_sodra",
       "linjebokId": "NRK",
       "name": "järna_till_åby_södra",
-      "linjebeskrivning": { "fran": "Järna", "till": "Åby södra" },
+      "linjebeskrivning": { "fram": "Järna → Åby södra", "bak": "Åby södra → Järna" },
       "ordning": ["Jn",  "Hlö",  "Vhd",  "Lre",  "Tba",  "Ssa",  "Nk",  "Ebg",  "Jår",  "Åba",  "Kon",  "Gtå",  "Åbs"]
     },
     {
@@ -53,7 +53,7 @@
       "id": "NRK_linkopings_central_till_rimforsa",
       "linjebokId": "NRK",
       "name": "linköpings_central_till_rimforsa",
-      "linjebeskrivning": { "fran": "Linköpings central", "till": "Rimforsa" },
+      "linjebeskrivning": { "fram": "Linköpings central → Rimforsa", "bak": "Rimforsa → Linköpings central" },
       "ordning": ["Lp",  "Tn",  "Hj",  "Suf",  "Bsä",  "Bsp",  "Brk",  "Gäd",  "Oph",  "Rfb",  "Rf"]
     },
     {
@@ -95,7 +95,7 @@
       "id": "NRK_aby_sodra_till_aby_gods",
       "linjebokId": "NRK",
       "name": "åby_södra_till_åby_godsbangård",
-      "linjebeskrivning": { "fran": "Åby södra", "till": "Åby godsbangård" },
+      "linjebeskrivning": { "fram": "Åby södra → Åby godsbangård", "bak": "Åby godsbangård → Åby södra" },
       "ordning": ["Åbs",  "Åbyg"]
     }
   ]

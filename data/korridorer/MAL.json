@@ -4,168 +4,168 @@
       "id": "MAL_arlov_till_malmo_gbg",
       "linjebokId": "MAL",
       "name": "arlöv_till_malmö_gbg",
-      "linjebeskrivning": { "fran": "Arlöv", "till": "Malmö gbg" },
+      "linjebeskrivning": { "fram": "Arlöv → Malmö gbg", "bak": "Malmö gbg → Arlöv" },
       "ordning": ["Al",  "Mgb"]
     },
     {
       "id": "MAL_berga_till_oskarshamn",
       "linjebokId": "MAL",
       "name": "berga_till_oskarshamn",
-      "linjebeskrivning": { "fran": "Berga", "till": "Oskarshamn" },
+      "linjebeskrivning": { "fram": "Berga → Oskarshamn", "bak": "Oskarshamn → Berga" },
       "ordning": ["Bg",  "Oh"]
     },
     {
       "id": "MAL_eldsberga_till_hassleholm",
       "linjebokId": "MAL",
       "name": "eldsberga_till_hässleholm",
-      "linjebeskrivning": { "fran": "Eldsberga", "till": "Hässleholm" },
+      "linjebeskrivning": { "fram": "Eldsberga → Hässleholm", "bak": "Hässleholm → Eldsberga" },
       "ordning": ["Ea",  "Gnd",  "Knä",  "Mrd",  "Vsj",  "Bjm",  "Hm"]
     },
     {
       "id": "MAL_emmaboda_till_karlskrona",
       "linjebokId": "MAL",
       "name": "emmaboda_till_karlskrona",
-      "linjebeskrivning": { "fran": "Emmaboda", "till": "Karlskrona" },
+      "linjebeskrivning": { "fram": "Emmaboda → Karlskrona C", "bak": "Karlskrona C → Emmaboda" },
       "ordning": ["Em",  "Vfa",  "Hmö",  "Spj",  "Gua",  "Båa",  "Ck"]
     },
     {
       "id": "MAL_gamlarp_till_peberholm",
       "linjebokId": "MAL",
       "name": "gamlarp_till_peberholm",
-      "linjebeskrivning": { "fran": "Gamlarp", "till": "Peberholm" },
+      "linjebeskrivning": { "fram": "Gamlarp → Peberholm", "bak": "Peberholm → Gamlarp" },
       "ordning": ["Gmp",  "N",  "Gt",  "Bdf",  "Utp",  "Sä",  "Ahm",  "Sy",  "Rk",  "Lh",  "Grd",  "Lns",  "Mo",  "Gåp",  "Av",  "Bld",  "Vs",  "Era",  "Diö",  "Dis",  "Äh",  "Kr",  "Tun",  "O",  "Hv",  "Mud",  "Bl",  "Hm",  "Mlb",  "Söla",  "Väd",  "Tö",  "Hö",  "Sg",  "E",  "Dat",  "Ö",  "Stb",  "Thl",  "Lu",  "Kgå",  "Hjp",  "Åk",  "Blv",  "Al",  "Mgb",  "Mc",  "Tri",  "Hie",  "Lnk",  "Phm"]
     },
     {
       "id": "MAL_halmstad_till_lund",
       "linjebokId": "MAL",
       "name": "halmstad_till_lund",
-      "linjebeskrivning": { "fran": "Halmstad", "till": "Lund" },
+      "linjebeskrivning": { "fram": "Halmstad C → Helsingborg, Landskrona ö, Lund C", "bak": "Lund C → Landskrona ö, Helsingborg, Halmstad C" },
       "ordning": ["Hd",  "Hdr",  "Kst",  "Ea",  "Laov",  "Bån",  "Has",  "För",  "Vip",  "Baa",  "Ä",  "Vh",  "Ka",  "Öda",  "Mia",  "Pö",  "Hb",  "Hbgb",  "Ryä",  "Glv",  "Lkö",  "Häp",  "Dös",  "Kg",  "Gnb",  "Lu"]
     },
     {
       "id": "MAL_helsingborg_till_eslov",
       "linjebokId": "MAL",
       "name": "helsingborg_till_eslöv",
-      "linjebeskrivning": { "fran": "Helsingborg", "till": "Eslöv" },
+      "linjebeskrivning": { "fram": "Helsingborg C → Eslöv", "bak": "Eslöv → Helsingborg C" },
       "ordning": ["Hb",  "Hbgb",  "Gan",  "Våk",  "Tgp",  "Bib",  "Tp",  "Mar",  "E"]
     },
     {
       "id": "MAL_hassleholm_till_helsingborg",
       "linjebokId": "MAL",
       "name": "hässleholm_till_helsingborg",
-      "linjebeskrivning": { "fran": "Hässleholm", "till": "Helsingborg" },
+      "linjebeskrivning": { "fram": "Hässleholm → Helsingborg C", "bak": "Helsingborg C → Hässleholm" },
       "ordning": ["Hm",  "Fin",  "Ty",  "Vto",  "Pt",  "Hyl",  "Kl",  "Kvi",  "Käb",  "Åp",  "Bjuv",  "Mör",  "Påa",  "Ätk",  "Hbgb",  "Hb"]
     },
     {
       "id": "MAL_jonkoping_till_vaggeryd",
       "linjebokId": "MAL",
       "name": "jönköping_till_vaggeryd",
-      "linjebeskrivning": { "fran": "Jönköping", "till": "Vaggeryd" },
+      "linjebeskrivning": { "fram": "Jönköping C → Vaggeryd", "bak": "Vaggeryd → Jönköping C" },
       "ordning": ["Jö",  "Rkö",  "Jögb",  "Hvs",  "Nhr",  "Tag",  "Måp",  "Eky",  "Btg",  "Bym",  "Vgd"]
     },
     {
       "id": "MAL_karlskrona_c_till_hassleholm",
       "linjebokId": "MAL",
       "name": "karlskrona_c_till_hässleholm",
-      "linjebeskrivning": { "fran": "Karlskrona C", "till": "Hässleholm" },
+      "linjebeskrivning": { "fram": "Karlskrona C → Hässleholm", "bak": "Hässleholm → Karlskrona C" },
       "ordning": ["Ck",  "Båa",  "Gua",  "Nät",  "Rb",  "Bhb",  "Åmn",  "Kh",  "Vru",  "Mru",  "Sak",  "Sög",  "Bml",  "Fki",  "Crgb",  "Cr",  "Kap",  "Önd",  "Vöv",  "Atp",  "Hm"]
     },
     {
       "id": "MAL_kristianstad_till_ahus",
       "linjebokId": "MAL",
       "name": "kristianstad_till_åhus",
-      "linjebeskrivning": { "fran": "Kristianstad", "till": "Åhus" },
+      "linjebeskrivning": { "fram": "Kristianstad C → Åhus", "bak": "Åhus → Kristianstad C" },
       "ordning": ["Cr",  "Crs",  "Åhus"]
     },
     {
       "id": "MAL_malmo_gbg_till_peberholm_via_fosieby",
       "linjebokId": "MAL",
       "name": "malmö_gbg_till_peberholm_via_fosieby",
-      "linjebeskrivning": { "fran": "Malmö gbg", "till": "Peberholm", "via": "Fosieby" },
+      "linjebeskrivning": { "fram": "Malmö gbg → Peberholm via Fosieby", "bak": "Peberholm → Malmö gbg via Fosieby" },
       "ordning": ["Mgb",  "Övn",  "Rog",  "Mpb",  "Fsb",  "Stp",  "Lnk",  "Phm"]
     },
     {
       "id": "MAL_malmo_gbg_till_trelleborg",
       "linjebokId": "MAL",
       "name": "malmö_gbg_till_trelleborg",
-      "linjebeskrivning": { "fran": "Malmö gbg", "till": "Trelleborg" },
+      "linjebeskrivning": { "fram": "Malmö gbg → Trelleborg", "bak": "Trelleborg → Malmö gbg" },
       "ordning": ["Mgb",  "Övn",  "Rog",  "Mpb",  "Fsb",  "Lrp",  "Vid",  "Ög",  "Svö",  "Trg"]
     },
     {
       "id": "MAL_monsteras_till_blomstermala",
       "linjebokId": "MAL",
       "name": "mönsterås_till_blomstermåla",
-      "linjebeskrivning": { "fran": "Mönsterås", "till": "Blomstermåla" },
+      "linjebeskrivning": { "fram": "Mönsterås → Blomstermåla", "bak": "Blomstermåla → Mönsterås" },
       "ordning": ["Mss",  "Bma"]
     },
     {
       "id": "MAL_nassjo_till_halmstad",
       "linjebokId": "MAL",
       "name": "nässjo_till_halmstad",
-      "linjebeskrivning": { "fran": "Nässjö", "till": "Halmstad" },
+      "linjebeskrivning": { "fram": "Nässjö C → Halmstad rbg", "bak": "Halmstad rbg → Nässjö C" },
       "ordning": ["N",  "Fdl",  "Soe",  "Mbä",  "Hok",  "Vgd",  "Bmo",  "Syd",  "Kvh",  "Hrl",  "Väc",  "Fod",  "Bdy",  "Rft",  "Sdr",  "Sph",  "Lrd",  "Kid",  "Bög",  "Tou",  "Om",  "Sarp",  "Fur",  "Hd",  "Hdr"]
     },
     {
       "id": "MAL_nassjo_till_hultsfred",
       "linjebokId": "MAL",
       "name": "nässjö_till_hultsfred",
-      "linjebeskrivning": { "fran": "Nässjö", "till": "Hultsfred" },
+      "linjebeskrivning": { "fram": "Nässjö C → Hultsfred", "bak": "Hultsfred → Nässjö C" },
       "ordning": ["N",  "Brin",  "Ory",  "Ek",  "Hul",  "Bz",  "Hvd",  "Igt",  "Vln",  "Mnd",  "Lön",  "Sic",  "Sid",  "Hud",  "Hf"]
     },
     {
       "id": "MAL_nassjo_till_vetlanda",
       "linjebokId": "MAL",
       "name": "nässjö_till_vetlanda",
-      "linjebeskrivning": { "fran": "Nässjö", "till": "Vetlanda" },
+      "linjebeskrivning": { "fram": "Nässjö C → Vetlanda", "bak": "Vetlanda → Nässjö C" },
       "ordning": ["N",  "Snö",  "Bjy",  "Tj",  "Esn",  "Vta"]
     },
     {
       "id": "MAL_rimforsa_till_kalmar_c",
       "linjebokId": "MAL",
       "name": "rimforsa_till_kalmar_c",
-      "linjebeskrivning": { "fran": "Rimforsa", "till": "Kalmar C" },
+      "linjebeskrivning": { "fram": "Rimforsa → Kalmar C", "bak": "Kalmar C → Rimforsa" },
       "ordning": ["Rf",  "Kisa",  "Kpkv",  "Vrn",  "Bök",  "Gng",  "Svi",  "Alv",  "Vib",  "Vibh",  "Sro",  "Hf",  "Måa",  "Möa",  "Bg",  "Höy",  "Rud",  "Bma",  "Rby",  "Kas",  "Kac"]
     },
     {
       "id": "MAL_torup_till_hyltebruk",
       "linjebokId": "MAL",
       "name": "torup_till-hyltebruk",
-      "linjebeskrivning": { "fran": "Torup", "till": "Hyltebruk" },
+      "linjebeskrivning": { "fram": "Torup → Hyltebruk", "bak": "Hyltebruk → Torup" },
       "ordning": ["Tou",  "Hyb"]
     },
     {
       "id": "MAL_vetlanda_till_kvillsfors",
       "linjebokId": "MAL",
       "name": "vetlanda_till_kvillsfors",
-      "linjebeskrivning": { "fran": "Vetlanda", "till": "Kvillsfors" },
+      "linjebeskrivning": { "fram": "Vetlanda → Kvillsfors", "bak": "Kvillsfors → Vetlanda" },
       "ordning": ["Vta",  "Bsd",  "Hbr",  "Kvf"]
     },
     {
       "id": "MAL_varnamo_c_till_kalmar_c",
       "linjebokId": "MAL",
       "name": "värnamo-c_till_kalmar-c",
-      "linjebeskrivning": { "fran": "Värnamo C", "till": "Kalmar C" },
+      "linjebeskrivning": { "fram": "Värnamo C → Kalmar C", "bak": "Kalmar C → Värnamo C" },
       "ordning": ["Väc",  "Röp",  "Bor",  "Rym",  "Av",  "Gm",  "Räp",  "Vö",  "Ård",  "Hvp",  "Lo",  "Sru",  "Em",  "Örs",  "Nyb",  "Fre",  "Tre",  "Sdy",  "Kas",  "Kac"]
     },
     {
       "id": "MAL_angelholm_till_arlov",
       "linjebokId": "MAL",
       "name": "Ängelholm_till_arlöv",
-      "linjebeskrivning": { "fran": "Ängelholm", "till": "Arlöv" },
+      "linjebeskrivning": { "fram": "Ängelholm → Åstorp, Teckomatorp, Kävlinge, Arlöv", "bak": "Arlöv → Kävlinge, Teckomatorp, Åstorp, Ängelholm" },
       "ordning": ["Ä",  "Åp",  "Bih",  "Kd",  "Sal",  "Tp",  "Kg",  "Fud",  "Sie",  "Fl",  "Lma",  "Al"]
     },
     {
       "id": "MAL_almhult_till_olofstrom",
       "linjebokId": "MAL",
       "name": "älmhult_till_olofstrom",
-      "linjebeskrivning": { "fran": "Älmhult", "till": "Olofström" },
+      "linjebeskrivning": { "fram": "Älmhult → Olofström", "bak": "Olofström → Älmhult" },
       "ordning": ["Äh",  "Hkö",  "Of"]
     },
     {
       "id": "MAL_astorp_till_kattarp",
       "linjebokId": "MAL",
       "name": "åstorp_till_kattarp",
-      "linjebeskrivning": { "fran": "Åstorp", "till": "Kattarp" },
+      "linjebeskrivning": { "fram": "Åstorp → Kattarp", "bak": "Kattarp → Åstorp" },
       "ordning": ["Åp",  "Aal",  "Hlp",  "Ka"]
     }
   ]

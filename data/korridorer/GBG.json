@@ -4,126 +4,126 @@
       "id": "GBG_almedal_till_varnamo_central",
       "linjebokId": "GBG",
       "name": "almedal_till_värnamo-central",
-      "linjebeskrivning": { "fran": "Almedal", "till": "Värnamo central" },
+      "linjebeskrivning": { "fram": "Almedal → Värnamo central", "bak": "Värnamo central → Almedal" },
       "ordning": ["Am",  "Mdö",  "Myk",  "Häy",  "Hås",  "Rd",  "Boy",  "Rö",  "Sae",  "Bsc",  "Apd",  "Hil",  "Lme",  "Grm",  "Het",  "Gnö",  "Hto",  "Väc"]
     },
     {
       "id": "GBG_alvhem_till_lilla_edet",
       "linjebokId": "GBG",
       "name": "alvhem_till_lilla_edet",
-      "linjebeskrivning": { "fran": "Alvhem", "till": "Lilla Edet" },
+      "linjebeskrivning": { "fram": "Alvhem → Lilla Edet", "bak": "Lilla Edet → Alvhem" },
       "ordning": ["Alh",  "Löö",  "Let"]
     },
     {
       "id": "GBG_bengtsfors_till_mellerud",
       "linjebokId": "GBG",
       "name": "bengtsfors_till_mellerud",
-      "linjebeskrivning": { "fran": "Bengtsfors", "till": "Mellerud" },
+      "linjebeskrivning": { "fram": "Bengtsfors → Mellerud", "bak": "Mellerud → Bengtsfors" },
       "ordning": ["Bef",  "Tjs",  "Bfo",  "Flgd",  "Lgb",  "Dld",  "Tsl",  "But",  "Rån",  "Hvr",  "Åb",  "Skru",  "Ml"]
     },
     {
       "id": "GBG_falkoping_c_till_nassjo_c",
       "linjebokId": "GBG",
       "name": "falköping_c_till_nässjö_c",
-      "linjebeskrivning": { "fran": "Falköping C", "till": "Nässjö C" },
+      "linjebeskrivning": { "fram": "Falköping C → Nässjö C", "bak": "Nässjö C → Falköping C" },
       "ordning": ["F",  "Vf",  "Sm",  "Mu",  "Ho",  "Bry",  "Jö",  "Hka",  "Th",  "Fm",  "Kröb",  "Äng",  "N"]
     },
     {
       "id": "GBG_gardsjo_till_hakantorp",
       "linjebokId": "GBG",
       "name": "gårdsjö_till_håkantorp",
-      "linjebeskrivning": { "fran": "Gårdsjö", "till": "Håkantorp" },
+      "linjebeskrivning": { "fram": "Gårdsjö → Håkantorp", "bak": "Håkantorp → Gårdsjö" },
       "ordning": ["Gdö",  "Hova",  "Tvd",  "Lyd",  "Hsr",  "Mst",  "Lnå",  "Äsr",  "Öäg",  "Fhm",  "Hlk",  "Rbk",  "Trm",  "Bmb",  "Kll",  "Fiä",  "Lkp",  "Fc",  "Lve",  "Jps",  "Stlv",  "Håp"]
     },
     {
       "id": "GBG_goteborg_c_till_kistinge",
       "linjebokId": "GBG",
       "name": "göteborg_c_till_kistinge",
-      "linjebeskrivning": { "fran": "Göteborg C", "till": "Kistinge" },
+      "linjebeskrivning": { "fram": "Göteborg C → Kistinge", "bak": "Kistinge → Göteborg C" },
       "ordning": ["G",  "Gro",  "Lis",  "Am",  "Mdn",  "Krd",  "Ldo",  "Ag",  "Lgd",  "Khe",  "Kb",  "Lek",  "Åsa",  "Få",  "Vrö",  "Vbgb",  "Vbc",  "Haa",  "Tye",  "Teo",  "Fabp",  "He",  "Bp",  "Btp",  "Fur",  "Hd",  "Hdr",  "Kst"]
     },
     {
       "id": "GBG_goteborg_kville_savedalen",
       "linjebokId": "GBG",
       "name": "göteborg_kville_sävedalen",
-      "linjebeskrivning": { "fran": "Göteborg Kville", "till": "Sävedalen" },
+      "linjebeskrivning": { "fram": "Göteborg Kville → Sävedalen", "bak": "Sävedalen → Göteborg Kville" },
       "ordning": ["Gk",  "Or",  "Gsv",  "Sär",  "Sel"]
     },
     {
       "id": "GBG_goteborg_marieholm_till_goteborg_skandiahamnen",
       "linjebokId": "GBG",
       "name": "göteborg_marieholm_till_göteborg-_skandiahamnen",
-      "linjebeskrivning": { "fran": "Göteborg Marieholm", "till": "Göteborg Skandiahamnen" },
+      "linjebeskrivning": { "fram": "Göteborg Marieholm → Göteborg Skandiahamnen", "bak": "Göteborg Skandiahamnen → Göteborg Marieholm" },
       "ordning": ["Gbm",  "Gk",  "Gli",  "Pöb",  "Gsh"]
     },
     {
       "id": "GBG_goteborg_marieholm_till_olskroken",
       "linjebokId": "GBG",
       "name": "göteborg_marieholm_till_olskroken",
-      "linjebeskrivning": { "fran": "Göteborg Marieholm", "till": "Olskroken" },
+      "linjebeskrivning": { "fram": "Göteborg Marieholm → Olskroken", "bak": "Olskroken → Göteborg Marieholm" },
       "ordning": ["Gbm",  "Or"]
     },
     {
       "id": "GBG_herrljunga_central_till_varbergs_central",
       "linjebokId": "GBG",
       "name": "herrljunga_central_till_varbergs_central",
-      "linjebeskrivning": { "fran": "Herrljunga central", "till": "Varbergs central" },
+      "linjebeskrivning": { "fram": "Herrljunga C → Varberg", "bak": "Varberg → Herrljunga C" },
       "ordning": ["Hrc",  "Lju",  "Top",  "Moy",  "Boa",  "Fra",  "Nosk",  "Knl",  "Bsc",  "Vfo",  "Frl",  "Kin",  "Asb",  "See",  "Bgm",  "Bjo",  "Hre",  "Jäy",  "Vdi",  "Dre",  "Tof",  "Vbgb",  "Vbc"]
     },
     {
       "id": "GBG_jonkoping_c_till_jonkoping_gbg",
       "linjebokId": "GBG",
       "name": "jönkoping_c_till_jönkoping_gbg",
-      "linjebeskrivning": { "fran": "Jönköping C", "till": "Jönköping gbg" },
+      "linjebeskrivning": { "fram": "Jönköping C → Jönköping gbg", "bak": "Jönköping gbg → Jönköping C" },
       "ordning": ["Jö",  "Rkö",  "Jögb"]
     },
     {
       "id": "GBG_kil_till_goteborg_c",
       "linjebokId": "GBG",
       "name": "kil_till_göteborg_c",
-      "linjebeskrivning": { "fran": "Kil", "till": "Göteborg C" },
+      "linjebeskrivning": { "fram": "Kil → Göteborg C", "bak": "Göteborg C → Kil" },
       "ordning": ["Kil",  "El",  "Våb",  "Gms",  "Sgm",  "Vdb",  "Byä",  "Sfl",  "Ål",  "Töe",  "Ånm",  "Kpm",  "Ml",  "Erk",  "Skbl",  "Brl",  "Fdf",  "Bjh",  "Öx",  "Thn",  "Veas",  "Vpm",  "Tbn",  "Les",  "Alh",  "Än",  "Nol",  "Nöe",  "Bhs",  "Sue",  "Agb",  "Gbm",  "Gas",  "Or",  "G"]
     },
     {
       "id": "GBG_kornsjo_till_skalebol",
       "linjebokId": "GBG",
       "name": "kornsjö_till_skälebol",
-      "linjebeskrivning": { "fran": "Kornsjö", "till": "Skälebol" },
+      "linjebeskrivning": { "fram": "Kornsjö → Skälebol", "bak": "Skälebol → Kornsjö" },
       "ordning": ["Ko",  "Mon",  "Ed",  "Bäf",  "Drt",  "Rås",  "Skbl"]
     },
     {
       "id": "GBG_olskroken_gubbero",
       "linjebokId": "GBG",
       "name": "olskroken_gubbero",
-      "linjebeskrivning": { "fran": "Olskroken", "till": "Gubbero" },
+      "linjebeskrivning": { "fram": "Olskroken → Gubbero", "bak": "Gubbero → Olskroken" },
       "ordning": ["Or",  "Gro"]
     },
     {
       "id": "GBG_skovde_c_till_goteborg_c",
       "linjebokId": "GBG",
       "name": "skövde_c_till_göteborg_c",
-      "linjebeskrivning": { "fran": "Skövde C", "till": "Göteborg C" },
+      "linjebeskrivning": { "fram": "Skövde C → Göteborg C", "bak": "Göteborg C → Skövde C" },
       "ordning": ["Sk",  "Rmtp",  "Ss",  "Fn",  "F",  "Fby",  "Kä",  "Hrc",  "Hrv",  "Vgå",  "Agg",  "A",  "Bgs",  "Vbd",  "Ns",  "Ndv",  "Fd",  "Sn",  "Lr",  "Asd",  "Apn",  "J",  "Jv",  "P",  "Sel",  "Gsv",  "Or",  "G"]
     },
     {
       "id": "GBG_stromstad_till_goteborg_c",
       "linjebokId": "GBG",
       "name": "strömstad_till_göteborg_c",
-      "linjebeskrivning": { "fran": "Strömstad", "till": "Göteborg C" },
+      "linjebeskrivning": { "fram": "Strömstad → Göteborg C", "bak": "Göteborg C → Strömstad" },
       "ordning": ["Smd",  "Ske",  "Övb",  "Kgs",  "Tnu",  "Rbh",  "Hlv",  "Dl",  "Mkl",  "Uv",  "Uö",  "Ghd",  "Lj",  "Svg",  "Snu",  "Sth",  "Kde",  "Yb",  "Sve",  "Gk",  "Or",  "G"]
     },
     {
       "id": "GBG_torebo_till_falkenberg_godsstation",
       "linjebokId": "GBG",
       "name": "torebo_till_falkenberg_godsstation",
-      "linjebeskrivning": { "fran": "Torebo", "till": "Falkenberg godsstation" },
+      "linjebeskrivning": { "fram": "Torebo → Falkenberg godsstation", "bak": "Falkenberg godsstation → Torebo" },
       "ordning": ["Teo",  "Fabg"]
     },
     {
       "id": "GBG_uddevalla_central_till_herrljunga_central",
       "linjebokId": "GBG",
       "name": "uddevalla_central_till_herrljunga_central",
-      "linjebeskrivning": { "fran": "Uddevalla central", "till": "Herrljunga central" },
+      "linjebeskrivning": { "fram": "Uddevalla C → Herrljunga C", "bak": "Herrljunga C → Uddevalla C" },
       "ordning": ["Uv",  "Ryr",  "Öx",  "Vg",  "Vag",  "Gop",  "Håp",  "Vaa",  "Ved",  "Hrc"]
     }
   ]
