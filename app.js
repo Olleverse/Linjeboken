@@ -159,10 +159,74 @@
     );
   }
 
+  // ---------- Förslagslista under sökrutorna ----------
+  // Visar driftplatser vars namn eller kod BÖRJAR med det man skrivit.
+  function suggestionsFor(q) {
+    const lower = q.trim().toLowerCase();
+    if (!lower) return [];
+    const exactCode = [], namePrefix = [], codePrefix = [], wordPrefix = [];
+    for (const dp of dpList) {
+      const name = (dp.name || "").toLowerCase();
+      const code = dp.code.toLowerCase();
+      if (code === lower) exactCode.push(dp);
+      else if (!dp.saknarNamn && name.startsWith(lower)) namePrefix.push(dp);
+      else if (code.startsWith(lower)) codePrefix.push(dp);
+      else if (lower.length >= 3 && name.split(/[\s-]+/).some((w) => w.startsWith(lower))) wordPrefix.push(dp);
+    }
+    const isMain = (dp) => /(central|\sC)$/i.test(dp.name || "");
+    namePrefix.sort((x, y) => (isMain(y) - isMain(x)) || x.name.localeCompare(y.name, "sv"));
+    return exactCode.concat(namePrefix, codePrefix, wordPrefix).slice(0, 30);
+  }
+
+  function setupAutocomplete(id) {
+    const input = $(id);
+    if (!input) return;
+    const list = input.parentElement.querySelector(".sugg");
+    let items = [];
+    let active = -1;
+
+    const hide = () => { list.hidden = true; active = -1; };
+    const render = () => {
+      if (!items.length) return hide();
+      list.innerHTML = items.map((dp, i) =>
+        `<li data-i="${i}" class="${i === active ? "active" : ""}">${esc(dp.saknarNamn ? dp.code : dp.name)}` +
+        `${dp.saknarNamn ? "" : `<span class="code">${esc(dp.code)}</span>`}</li>`).join("");
+      list.hidden = false;
+      const el = list.children[active];
+      if (el) el.scrollIntoView({ block: "nearest" });
+    };
+    const choose = (i) => {
+      const dp = items[i];
+      if (!dp) return;
+      input.value = formatDp(dp.code);
+      hide();
+      // hoppa vidare till nästa tomma fält
+      const next = ["start", "via", "slut"].map($).find((el) => el && el !== input && !el.value && el.id !== "via");
+      if (next) next.focus();
+    };
+
+    input.addEventListener("input", () => { items = suggestionsFor(input.value); active = -1; render(); });
+    input.addEventListener("focus", () => { input.select(); });
+    input.addEventListener("blur", () => setTimeout(hide, 150));
+    input.addEventListener("keydown", (e) => {
+      if (list.hidden) return;
+      if (e.key === "ArrowDown") { active = Math.min(active + 1, items.length - 1); render(); e.preventDefault(); }
+      else if (e.key === "ArrowUp") { active = Math.max(active - 1, 0); render(); e.preventDefault(); }
+      else if (e.key === "Enter") { choose(active >= 0 ? active : 0); e.preventDefault(); e.stopPropagation(); }
+      else if (e.key === "Escape") { hide(); }
+    });
+    // pointerdown i stället för click, så att valet hinner registreras innan fältet tappar fokus
+    list.addEventListener("pointerdown", (e) => {
+      const li = e.target.closest("li");
+      if (li) { e.preventDefault(); choose(Number(li.dataset.i)); }
+    });
+
+    const clr = input.parentElement.querySelector(".clr");
+    if (clr) clr.addEventListener("click", () => { input.value = ""; hide(); input.focus(); });
+  }
+
   function fillDatalist() {
-    const dl = $("dpList");
-    if (!dl) return;
-    dl.innerHTML = dpList.map((dp) => `<option value="${esc(formatDp(dp.code))}"></option>`).join("");
+    ["start", "via", "slut"].forEach(setupAutocomplete);
   }
 
   // ---------- Pathfinding ----------
@@ -249,12 +313,13 @@
   function compressSegments(path) {
     const nodes = path.nodes;
     const corrs = path.corridors;
+    const breakAt = path.viaIndex ?? -1; // börja alltid ett nytt avsnitt vid via-platsen
     const segments = [];
     let i = 0;
     while (i < corrs.length) {
       const corridorId = corrs[i];
       let j = i;
-      while (j < corrs.length && corrs[j] === corridorId) j++;
+      while (j < corrs.length && corrs[j] === corridorId && (j === i || j !== breakAt)) j++;
       segments.push({ corridorId, from: nodes[i], to: nodes[j] });
       i = j;
     }
@@ -345,7 +410,8 @@
         if (!p1 || !p2) return renderError("Hittar ingen väg via " + formatDp(viaCode) + ".");
         path = {
           nodes: p1.nodes.concat(p2.nodes.slice(1)),
-          corridors: p1.corridors.concat(p2.corridors)
+          corridors: p1.corridors.concat(p2.corridors),
+          viaIndex: p1.nodes.length - 1
         };
       } else {
         path = findRoute(fromCode, toCode);

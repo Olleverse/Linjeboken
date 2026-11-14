@@ -28,6 +28,13 @@
     .warn { color: #b60; font-weight: 600; }
     .bad { color: #c00; font-weight: 700; }
     .divider { height: 1px; background: #ddd; margin: 10px 0; }
+    .ac { position: relative; }
+    .ac input { padding-right: 44px; }
+    .clr { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: transparent; font-size: 1.4rem; line-height: 1; padding: 6px 10px; color: #888; }
+    .sugg { position: absolute; z-index: 10; left: 0; right: 0; top: 100%; margin: 4px 0 0; padding: 4px 0; list-style: none; background: #fff; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,.12); max-height: 320px; overflow-y: auto; }
+    .sugg li { padding: 10px 12px; cursor: pointer; }
+    .sugg li.active, .sugg li:hover { background: #eef3ff; }
+    .sugg li .code { opacity: .6; margin-left: 6px; }
   </style>
 </head>
 <body>
@@ -38,10 +45,9 @@
   </div>
 
   <div class="row">
-    <input id="start" list="dpList" placeholder="Start (t.ex. Sk eller Skövde)" autocomplete="off" />
-    <input id="via"   list="dpList" placeholder="Via (valfritt, t.ex. Hb eller Helsingborg)" autocomplete="off" />
-    <input id="slut"  list="dpList" placeholder="Slut (t.ex. G eller Göteborg)" autocomplete="off" />
-    <datalist id="dpList"></datalist>
+    <div class="ac"><input id="start" placeholder="Start (t.ex. Sk eller Skövde)" autocomplete="off" autocapitalize="off" spellcheck="false" /><button type="button" class="clr" data-for="start" aria-label="Töm">×</button><ul class="sugg" hidden></ul></div>
+    <div class="ac"><input id="via"   placeholder="Via (valfritt, t.ex. Hb eller Helsingborg)" autocomplete="off" autocapitalize="off" spellcheck="false" /><button type="button" class="clr" data-for="via" aria-label="Töm">×</button><ul class="sugg" hidden></ul></div>
+    <div class="ac"><input id="slut"  placeholder="Slut (t.ex. G eller Göteborg)" autocomplete="off" autocapitalize="off" spellcheck="false" /><button type="button" class="clr" data-for="slut" aria-label="Töm">×</button><ul class="sugg" hidden></ul></div>
 
     <button class="primary" onclick="searchRoute()">Sök</button>
   </div>
@@ -102,6 +108,7 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- Höj versionsnumret vid varje uppdatering av app.js, så hämtar alla webbläsare den nya koden. -->
+  <script src="app.js?v=2026-11-14-3"></script>
 </body>
 </html>
