@@ -12,7 +12,7 @@
       "linjebokId": "HAL",
       "name": "domnarvet_till_frövi",
       "linjebeskrivning": { "fran": "Domnarvet", "till": "Frövi" },
-      "ordning": ["Dmn",  "Blgc",  "Slnä",  "Uly",  "Rmh",  "Gäg",  "La",  "Khy",  "Gg",  "Ggm",  "Stl",  "Kpg",  "Rlå",  "Sr",  "Ld",  "Vdv",  "Fv"]
+      "ordning": ["Dmn",  "Blgc",  "Slnä",  "Uly",  "Rmh",  "Gäg",  "La",  "Khy",  "Gg",  "Stl",  "Kpg",  "Rlå",  "Sr",  "Ld",  "Vdv",  "Fv"]
     },
     {
       "id": "HAL_filipstad_till_daglosen",
@@ -26,7 +26,7 @@
       "linjebokId": "HAL",
       "name": "frövi_till_hallsbergs_rangerbangård",
       "linjebeskrivning": { "fran": "Frövi", "till": "Hallsbergs rangerbangård" },
-      "ordning": ["Fv",  "Er",  "Hsa",  "Ör",  "Öb",  "Ms",  "Kla",  "Hpbg",  "Hrbg"]
+      "ordning": ["Fv",  "Er",  "Hsa",  "Ör",  "Öb",  "Ms",  "Kla",  "Shd",  "Hpbg",  "Hrbg"]
     },
     {
       "id": "HAL_frovi_till_jadersbruk",

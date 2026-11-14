@@ -19,7 +19,7 @@
       "linjebokId": "BDN",
       "name": "björnfjell_till_luleå",
       "linjebeskrivning": { "fran": "Björnfjell", "till": "Luleå" },
-      "ordning": ["Bjf",  "Rgn",  "Kjå",  "Vj",  "Låk",  "Kå",  "Bln",  "Akt",  "Ak",  "Soa",  "Kpe",  "Sbk",  "Tnk",  "Bfs",  "Rsn",  "Rut",  "Kv",  "Pea",  "Kia",  "Rsi",  "Kx",  "Gy",  "Sjka",  "Lab",  "Ktm",  "Fjå",  "Har",  "Håk",  "Lin",  "Stk",  "Gvc",  "Kaa",  "Hrt",  "Rps",  "Nrt",  "Klv",  "Ntv",  "Kva",  "Pc",  "Mk",  "Tet",  "Nb",  "Lkä",  "Glt",  "Stä",  "Grs",  "Lså",  "Hfs",  "Bud",  "Bdn",  "Svb",  "Sän",  "Svt",  "Sby",  "Sus",  "Gst",  "Nvn",  "Le"]
+      "ordning": ["Bjf",  "Rgn",  "Kjå",  "Vj",  "Låk",  "Kå",  "Bln",  "Akt",  "Ak",  "Soa",  "Kpe",  "Sbk",  "Tnk",  "Bfs",  "Rsn",  "Rut",  "Kv",  "Pea",  "Lvi",  "Kia",  "Rsi",  "Kx",  "Gy",  "Sjka",  "Lab",  "Ktm",  "Fjå",  "Har",  "Håk",  "Lin",  "Stk",  "Gvc",  "Kaa",  "Hrt",  "Rps",  "Nrt",  "Klv",  "Ntv",  "Kva",  "Pc",  "Mk",  "Tet",  "Nb",  "Lkä",  "Glt",  "Stä",  "Grs",  "Lså",  "Hfs",  "Bud",  "Bdn",  "Svb",  "Sän",  "Svt",  "Sby",  "Sus",  "Gst",  "Nvn",  "Le"]
     },
     {
       "id": "BDN_bodens_central_till_vannas",

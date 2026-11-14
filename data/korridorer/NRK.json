@@ -68,6 +68,7 @@
       "linjebokId": "NRK",
       "name": "snyten_till_ängelsberg",
       "linjebeskrivning": { "fran": "Snyten", "till": "Ängelsberg" },
+      "forbindelse": true,
       "ordning": ["Snt",  "Äbgb",  "Äbg"]
     },
     {

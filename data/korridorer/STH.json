@@ -33,13 +33,14 @@
       "linjebokId": "STH",
       "name": "stockholms_central_till_katrineholms_central",
       "linjebeskrivning": { "fram": "Stockholms central → Katrineholms central", "bak": "Katrineholms central → Stockholms central" },
-      "ordning": ["Cst",  "Sst",  "Åbe",  "Äs",  "Sta",  "Hu",  "Flb",  "Bjn",  "Uts",  "Msj",  "Söö",  "Jn",  "Mö",  "Gn",  "Koe",  "B",  "Sh",  "Nsj",  "Sp",  "Skv",  "Fle",  "Sde",  "Spn",  "K"]
+      "ordning": ["Cst",  "Sst",  "Åbe",  "Äs",  "Sta",  "Hu",  "Flb",  "Bjn",  "Msj",  "Söö",  "Jn",  "Mö",  "Gn",  "Koe",  "B",  "Sh",  "Nsj",  "Sp",  "Skv",  "Fle",  "Sde",  "Spn",  "K"]
     },
     {
       "id": "STH_stockholms_norra_till_karlberg",
       "linjebokId": "STH",
       "name": "stockholms_norra_till_karlberg",
       "linjebeskrivning": { "fram": "Stockholms norra → Karlberg", "bak": "Karlberg → Stockholms norra" },
+      "forbindelse": true,
       "ordning": ["Nst",  "Ke"]
     },
     {
